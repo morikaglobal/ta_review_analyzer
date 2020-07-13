@@ -7,13 +7,13 @@ import os
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-import nltk
-nltk.download("punkt")
+# import nltk
+# nltk.download("punkt")
 
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
-ps = PorterStemmer()
+# from nltk.corpus import stopwords
+# from nltk.tokenize import word_tokenize
+# from nltk.stem import PorterStemmer
+# ps = PorterStemmer()
 
 # from textblob import TextBlob
 # from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
