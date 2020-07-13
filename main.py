@@ -23,14 +23,21 @@ from selenium.common.exceptions import NoSuchElementException
 # import seaborn as sns
 # sns.set(style='darkgrid', context='talk', palette='Dark2')
 
-driver_location = r"C:\Users\masao\Anaconda3\chromedriver.exe"
+# commented out for heroku deployment
+# driver_location = r"C:\Users\masao\Anaconda3\chromedriver.exe"
+driver_path = '/app/.chromedriver/bin/chromedriver'
 
 # os.environ['PATH'] += ':'+os.path.dirname(os.path.realpath(__file__))+"/webdrivers"
 
 options = webdriver.ChromeOptions()
 options.add_argument('--lang=en')
 options.add_argument('--headless')
-driver = webdriver.Chrome(executable_path=driver_location, options=options)
+options.add_argument('--disable-gpu');
+options.add_argument('--disable-extensions');
+options.add_argument('--proxy-server="direct://"');
+options.add_argument('--proxy-bypass-list=*');
+options.add_argument('--start-maximized');
+driver = webdriver.Chrome(executable_path=driver_path, options=options)
 # driver = webdriver.Chrome(options=options)
 
 
@@ -60,6 +67,7 @@ def search_results(urlsearch):
     
     driver.get(search_string)
     return("success: " + search_string)
+    driver.quit()
 
     # return render_template("results.html", search_string = search_string)
 
