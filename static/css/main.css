@@ -1,0 +1,59 @@
+/* for all HTML */
+
+.container {
+    background-color: rgb(247, 247, 247);
+}
+
+h4 {
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+/* for index page */
+
+.page-top {
+    text-align: center;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+span {
+    display: inline-block;
+    margin-right: 0.2rem;
+}
+
+.form-url {
+    border: none;
+    height: 50px;
+    border-radius: 3px;
+}
+
+.errormsg {
+    color: red;
+    padding-top: 0;
+}
+
+/* for results page */
+
+.result {
+    background-color: lightblue;
+}
+
+#crop {
+    max-height: 400px;
+    max-width: 400px;
+}
+
+.col1 {
+    width: 20%;
+}
+
+.col2 {
+    width: 80%;
+}
+
+.resultspage {
+    text-align: left;
+}

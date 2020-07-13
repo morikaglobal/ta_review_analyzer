@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="resultspage">
+   <h5>Reviews for the attraction on the Tripadvisor URL link you entered has been analyzed as follows:</h5>
+   <h6>{{ search_string }}</h6>
+
+
+   <div class="container table-responsive result p-3 mb-3 mt-3">
+      <table class="table table-light mb-0">
+         <tbody>
+            <tr>
+               <td class="col1">Title</td>
+               <!-- <td class="col2"><a href="{{ search_string }}" target="_blank">{{ title }}</a></td> -->
+               <td class="col2"><a href="{{ search_string }}" target="_blank"> title </a></td>
+            </tr>
+
+            <tr>
+               <td>Published date</td>
+               <td> published_date </td>
+            </tr>
+
+            <tr>
+               <td>Author</td>
+               <td> author </td>
+            </tr>
+
+            <tr>
+               <td>Top image</td>
+               <td><img id="crop" src=" image "></td>
+            </tr>
+
+            <tr>
+               <td>Keywords</td>
+               <!-- WordCloud image display disabled for now
+                  <td><img src="data:image/png;base64,{{cloud}}"></td> -->
+               <td> keyword </td>
+            </tr>
+
+            <tr>
+               <td>Summary</td>
+               <td> summary </td>
+            </tr>
+
+         </tbody>
+      </table>
+   </div>
+</div>
+{% endblock %}
