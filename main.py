@@ -47,7 +47,7 @@ def search_results(urlsearch):
     driver.get(search_string)
     time.sleep(30)
     # return("success: " + search_string)
-    driver.quit()
+    # driver.quit()
 
     return render_template("results.html", search_string = search_string)
 
