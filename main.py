@@ -31,6 +31,11 @@ def index():
     if request.method == "POST":
         
         try:
+
+            #test
+            search_string = urlsearch.data['search']
+            driver.get(search_string)
+
             return search_results(urlsearch)
         except:
             errors.append(
@@ -45,7 +50,7 @@ def search_results(urlsearch):
     search_string = urlsearch.data['search']
 
     try:
-        driver.get(search_string)
+        # driver.get(search_string)
         # time.sleep(30)
         return render_template("results.html", search_string = search_string)
         # return("hohoho success" + URL)
