@@ -45,6 +45,7 @@ def search_results(urlsearch):
     search_string = urlsearch.data['search']
 
     driver.get(search_string)
+    time.sleep(30)
     # return("success: " + search_string)
     driver.quit()
 
