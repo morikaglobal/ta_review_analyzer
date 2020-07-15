@@ -44,20 +44,24 @@ def search_results(urlsearch):
     urlsearch = UrlSearchForm(request.form)
     search_string = urlsearch.data['search']
 
-    driver.get(search_string)
-    time.sleep(30)
-    # return("success: " + search_string)
-    # driver.quit()
+    try:
+        driver.get(search_string)
+        time.sleep(30)
+        return render_template("results.html", search_string = search_string)
+        # return("hohoho success" + URL)
+    except:
+        return ("Error Error")
+    finally:
+        driver.close()
 
-    return render_template("results.html", search_string = search_string)
+    # driver.get(search_string)
+    # time.sleep(30)
+    # # return("success: " + search_string)
+    # # driver.quit()
 
-    # try:
-    #     driver.get(search_string)
-    #     return("hohoho success" + URL)
-    # except:
-    #     return ("Error Error")
-    # finally:
-    #     driver.close()
+    # return render_template("results.html", search_string = search_string)
+
+    
 
 if __name__ == '__main__':
       app.run()
