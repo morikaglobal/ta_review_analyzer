@@ -38,22 +38,19 @@ def index():
             )       
     return render_template("index.html", form = urlsearch, errors = errors)
 
-    # try:
-    #     driver.get(URL)
-    #     return("hohoho success" + URL)
-    # except:
-    #     return ("Error Error")
-    # finally:
-    #     driver.close()
-
-
+    
 def search_results(urlsearch):
     
     urlsearch = UrlSearchForm(request.form)
     search_string = urlsearch.data['search']
-    
-    # driver.get(search_string)
-    return("success: " + search_string)
+
+    try:
+        driver.get(search_string)
+        return("hohoho success" + URL)
+    except:
+        return ("Error Error")
+    finally:
+        driver.close()
 
 if __name__ == '__main__':
       app.run()
