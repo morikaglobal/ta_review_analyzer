@@ -9,6 +9,7 @@ CHROME_DRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 # ダウンロードフォルダ―の場所を設定・作成
 DOWNLOAD_DIR = '/app/tmp'
 os.mkdir(DOWNLOAD_DIR)
+print(DOWNLOAD_DIR)
 
 # chromeの起動オプションを設定
 options = webdriver.ChromeOptions()
