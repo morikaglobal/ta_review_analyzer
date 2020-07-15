@@ -46,7 +46,7 @@ def search_results(urlsearch):
 
     try:
         driver.get(search_string)
-        time.sleep(30)
+        # time.sleep(30)
         return render_template("results.html", search_string = search_string)
         # return("hohoho success" + URL)
     except:
