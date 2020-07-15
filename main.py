@@ -35,8 +35,9 @@ def index():
             #test
             search_string = urlsearch.data['search']
             driver.get(search_string)
+            return("Success")
 
-            return search_results(urlsearch)
+            # return search_results(urlsearch)
         except:
             errors.append(
                 "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
