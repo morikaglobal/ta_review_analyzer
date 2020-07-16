@@ -7,15 +7,20 @@ import os
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# commented out for heroku deployment
+driver_location = r"C:\Users\masao\Anaconda3\chromedriver.exe"
 
-chrome_options.add_argument('--headless')
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument('--no-sandbox')
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+options = webdriver.ChromeOptions()
 
-URL = 'https://google.com/'
+options.add_argument('--lang=en')
+options.add_argument('--headless')
+driver = webdriver.Chrome(executable_path=driver_location, options=options)
+
+
+
+
+
+
 
 
 
@@ -51,10 +56,6 @@ def index():
 
             
             return (reviewtitle.text)
-
-            #code before - end of 15 July
-            # search_string = urlsearch.data['search']
-            # driver.get(search_string)
             # return search_results(urlsearch)
         except:
             errors.append(
@@ -72,6 +73,12 @@ def search_results(urlsearch):
     try:
         # driver.get(search_string)
         # time.sleep(30)
+
+        # container = driver.find_elements_by_xpath('//q[@class="location-review-review-list-parts-ExpandableReview__reviewText--gOmRC"]')
+        container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
+        print(container)
+
+
         return render_template("results.html", search_string = search_string)
         # return("hohoho success" + URL)
     except:
