@@ -32,7 +32,6 @@ def index():
         
         try:
 
-<<<<<<< HEAD
             if search_string.startswith("https://www.tripadvisor.com/", 0):
                 errors.append(
                 "Loading."
@@ -44,32 +43,6 @@ def index():
                 "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
                 ) 
 
-=======
-            #test
-            
-            search_string = urlsearch.data['search']
-            driver.get(search_string)
-            errors.append("Analyzing.... please wait")
-            print("getting")
-            driver.implicitly_wait(10)
-            
-            # return("Success")
-            container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
-            num_page_items = len(container)
-            title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
-
-            for j in range(num_page_items):
-                reviewtitle = title[j]
-                print(reviewtitle.text)
-
-            
-            return (reviewtitle.text)
-
-            #code before - end of 15 July
-            # search_string = urlsearch.data['search']
-            # driver.get(search_string)
-            # return search_results(urlsearch)
->>>>>>> 73494859c8a3802bb8de42665fcee50ce51a0ee7
         except:
             errors.append(
                 "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
