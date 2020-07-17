@@ -27,8 +27,13 @@ driver = webdriver.Chrome(executable_path=driver_location, options=options)
 
 app = Flask(__name__)
 
-@app.route('/', methods = ["GET", "POST"])
+@app.route('/')
+
 def index():
+    return ("Hello")
+
+@app.route('/test', methods = ["GET", "POST"])
+def test():
 
     errors = []
     urlsearch = UrlSearchForm(request.form)
