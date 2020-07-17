@@ -19,49 +19,52 @@ URL = 'https://google.com/'
 
 app = Flask(__name__)
 
-@app.route('/', methods = ["GET", "POST"])
+# @app.route('/', methods = ["GET", "POST"])
+@app.route('/')
+
 def index():
+    return ("Hello")
 
-    errors = []
-    urlsearch = UrlSearchForm(request.form)
-    search_string = urlsearch.data['search']
+    # errors = []
+    # urlsearch = UrlSearchForm(request.form)
+    # search_string = urlsearch.data['search']
 
-    if request.method == "POST":
+    # if request.method == "POST":
     
         
-        try:
+    #     try:
 
-            #test
-            # driver.get(search_string)
-            # errors.append(
-            #     "Getting URL"
-            # )   
+    #         #test
+    #         # driver.get(search_string)
+    #         # errors.append(
+    #         #     "Getting URL"
+    #         # )   
             
             
-            # driver.implicitly_wait(10)
-            if search_string.startswith("https://www.tripadvisor.com/", 0):
-                # errors.append(
-                # "Loading."
-                # ) 
-                return search_results(urlsearch)
+    #         # driver.implicitly_wait(10)
+    #         if search_string.startswith("https://www.tripadvisor.com/", 0):
+    #             # errors.append(
+    #             # "Loading."
+    #             # ) 
+    #             return search_results(urlsearch)
 
-            else:
-                errors.append(
-                "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
-                ) 
-
-            
-            
-            
+    #         else:
+    #             errors.append(
+    #             "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
+    #             ) 
 
             
             
-            # return search_results(urlsearch)
-        except:
-            errors.append(
-                "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
-            )       
-    return render_template("index.html", form = urlsearch, errors = errors)
+            
+
+            
+            
+    #         # return search_results(urlsearch)
+    #     except:
+    #         errors.append(
+    #             "Unable to get the URL.  Please paste a valid Tripadvisor URL link."
+    #         )       
+    # return render_template("index.html", form = urlsearch, errors = errors)
 
     
 def search_results(urlsearch):
