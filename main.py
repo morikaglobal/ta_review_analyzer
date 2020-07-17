@@ -27,11 +27,11 @@ def index():
 
     errors = []
     urlsearch = UrlSearchForm(request.form)
+    search_string = urlsearch.data['search']
 
     if request.method == "POST":
         
         try:
-
             if search_string.startswith("https://www.tripadvisor.com/", 0):
                 errors.append(
                 "Loading."
