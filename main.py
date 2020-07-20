@@ -16,7 +16,7 @@ chrome_options.add_argument('--no-sandbox')
 #error on heroku happens from codes below
 
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-driver.get("https://google.com/")
+# driver.get("https://google.com/")
 
 # URL = 'https://google.com/'
 
