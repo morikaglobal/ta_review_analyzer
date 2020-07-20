@@ -7,13 +7,14 @@ import os
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+#error on heroku happens from codes below
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 
-# chrome_options.add_argument('--headless')
-# chrome_options.add_argument("--disable-dev-shm-usage")
-# chrome_options.add_argument('--no-sandbox')
-# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+chrome_options.add_argument('--headless')
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 # URL = 'https://google.com/'
 
@@ -23,7 +24,7 @@ app = Flask(__name__)
 @app.route('/')
 
 def index():
-    return ("Hello")
+    return ("Hello Hello")
 
  
 if __name__ == '__main__':
