@@ -71,9 +71,9 @@ def search_results(urlsearch):
 
 
     try:
-        return ("success: " + search_string)
+        # return ("success: " + search_string)
         # print("working")
-        # driver.get(search_string)
+        driver.get(search_string)
         # print("getting")
         
         
@@ -81,22 +81,22 @@ def search_results(urlsearch):
         # # driver.implicitly_wait(10)
         
         # # return("Success")
+        container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
+        # print(container)
+        num_page_items = len(container)
+        title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
+
+        for j in range(num_page_items):
+            reviewtitle = title[j]
+            # print(reviewtitle.text)
+        
+        return (reviewtitle.text)
+        # driver.get(search_string)
+        # time.sleep(30)
+
+        # container = driver.find_elements_by_xpath('//q[@class="location-review-review-list-parts-ExpandableReview__reviewText--gOmRC"]')
         # container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
         # print(container)
-        # num_page_items = len(container)
-        # title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
-
-        # for j in range(num_page_items):
-        #     reviewtitle = title[j]
-        #     print(reviewtitle.text)
-        
-        # # return (reviewtitle.text)
-        # # driver.get(search_string)
-        # # time.sleep(30)
-
-        # # container = driver.find_elements_by_xpath('//q[@class="location-review-review-list-parts-ExpandableReview__reviewText--gOmRC"]')
-        # # container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
-        # # print(container)
 
 
         # return render_template("results.html", search_string = search_string)
