@@ -9,7 +9,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 driver= webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options=chrome_options)
 
-driver.get("https://www.google.com")
+
 
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ app = Flask(__name__)
 @app.route('/')
 
 def index():
+    driver.get("https://www.google.com")
     return (driver.page_source)
     # return ("Hello Hello")
 
