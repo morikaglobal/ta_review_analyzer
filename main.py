@@ -90,7 +90,8 @@ def search_results(urlsearch):
             reviewtitle = title[j]
             # print(reviewtitle.text)
         
-        return (reviewtitle.text)
+        title = reviewtitle.text
+        # return (reviewtitle.text)
         # driver.get(search_string)
         # time.sleep(30)
 
@@ -99,7 +100,7 @@ def search_results(urlsearch):
         # print(container)
 
 
-        # return render_template("results.html", search_string = search_string)
+        return render_template("results.html", search_string = search_string, title = title)
         # return("hohoho success" + URL)
     except:
         return ("Error Error")
