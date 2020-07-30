@@ -5,6 +5,9 @@
    <h5>Reviews for the attraction on the Tripadvisor URL link you entered has been analyzed as follows:</h5>
    <h6>{{ search_string }}</h6>
 
+   {% for list in scraped_data %}
+   <h6>title</h6>
+   {% end for %}
 
    <div class="container table-responsive result p-3 mb-3 mt-3">
       <table class="table table-light mb-0">
@@ -12,7 +15,7 @@
             <tr>
                <td class="col1">Title</td>
                <!-- <td class="col2"><a href="{{ search_string }}" target="_blank">{{ title }}</a></td> -->
-               <td class="col2"><a href="{{ search_string }}" target="_blank">{{ title }}</a></td>
+               <td class="col2"><a href="{{ search_string }}" target="_blank">title</a></td>
             </tr>
 
             <tr>
@@ -45,5 +48,6 @@
          </tbody>
       </table>
    </div>
+   <!-- {% end for %} -->
 </div>
 {% endblock %}

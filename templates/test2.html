@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tripadvisor Review Analyzer</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body>
+    <div class="container p-3 my-3">
+        <div class="page-top px-4">
+            <h4>Tripadvisor Review Analyzer</h4>
+
+            <h6>{{ search_string }}</h6>
+
+            
+            {% for i in location %}
+                <ul>
+                    <h6>{{ i }}</h6>
+                </ul>
+            {% endfor %}
+            
+
+            <h6>{{ location[0] }}</h6>
+
+
+            <span>Please visit my <a href="https://www.morikaglobal.com" target="_blank">Portfolio site</a> or <a
+                    href="https://github.com/morikaglobal/newsdatasummary_app" target="_blank">my github </a> for the
+                code of this app.</span>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
