@@ -68,7 +68,7 @@ def search_results(urlsearch):
     try:
         print("working")
         driver.get(search_string)
-        return ("getting")
+        print("getting")
         scraped_data = []
         location = []
 
@@ -82,7 +82,7 @@ def search_results(urlsearch):
             # print(container)
             num_page_items = len(container)
             title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
-            # print(title)
+            return(title)
             reviewer_location = driver.find_elements_by_xpath('//span[@class="default _3J15flPT small"]')
             location_div = driver.find_elements_by_xpath('//div[@class="_1EpRX7o3"]')
 
