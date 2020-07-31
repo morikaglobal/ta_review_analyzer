@@ -85,7 +85,7 @@ def search_results(urlsearch):
             # return(num_page_items)
             reviewer_location = driver.find_elements_by_xpath('//span[@class="default _3J15flPT small"]')
             location_div = driver.find_elements_by_xpath('//div[@class="_1EpRX7o3"]')
-            return(search_string)
+            # return(search_string)
 
             for j in range(num_page_items):
                 print("processing: ")
@@ -119,6 +119,7 @@ def search_results(urlsearch):
             print("scraped_data: ")
             print(type(scraped_data)) #list
             print(scraped_data)
+            return(scraped_data[0])
 
             driver.find_element_by_xpath('//a[@class="ui_button nav next primary "]').click()
             print("clicked")
