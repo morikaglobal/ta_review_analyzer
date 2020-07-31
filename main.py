@@ -68,7 +68,7 @@ def search_results(urlsearch):
     try:
         print("working")
         driver.get(search_string)
-        print("getting")
+        return ("getting")
         scraped_data = []
         location = []
 
