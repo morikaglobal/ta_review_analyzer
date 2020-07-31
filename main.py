@@ -150,7 +150,7 @@ def search_results(urlsearch):
 
 
         # todos = ['牛乳を買う', '洗濯をする', '掃除をする']
-        # return ("ohoho")
+        return ("ohoho")
         return render_template("test2.html", search_string = search_string, location = location)
         return render_template("test.html", search_string = search_string)
         
