@@ -18,6 +18,29 @@
 
             <h6>{{ search_string }}</h6>
 
+
+            {% for i in positive_top_words %}
+                {% set item_1 = positive_top_words[loop.index-1] %}
+                {% set item_2 = positive_top_words_freq[loop.index-1] %}
+                <ul>
+                    <h6>{{ item_1 }} : {{ item_2 }}</h6>
+                </ul>
+
+
+                <!-- {% for j in positive_top_words_freq %}
+                <ul>
+                    <h6>{{ i }} : {{ j }}</h6>
+                </ul>
+                {% endfor %} -->
+            {% endfor %}
+
+
+            {% for i in positive %}
+                <ul>
+                    <h6>{{ i }}</h6>
+                </ul>
+            {% endfor %}
+
             
             {% for i in location %}
                 <ul>
