@@ -206,7 +206,7 @@ def search_results(urlsearch):
         print(type(location))
         print(location)
         print("First set: ")
-        print(scraped_data[0])
+        return(scraped_data[0])
         print(location[0])
         print(reviewtext_to_analyze)
             
@@ -372,22 +372,6 @@ def search_results(urlsearch):
         print(positive_top_words)
         print(positive_top_words_freq)
 
-        # test =  []
-        # test2 = {}
-        # test3 = []
-        # test4 = {}
-
-
-
-
-        # # test = dict(pos_freq.most_common(20))
-        # # test2 = list(pos_freq.most_common(20))
-        # test3 = dict(pos_freq)
-        # test4 = list(pos_freq)
-        # print(type(test3))
-        # print(type(test4))
-        # print(test3)
-        # print(test4)
 
         # negative
         pos_freq_negative = nltk.FreqDist(filtered_text_negative)
