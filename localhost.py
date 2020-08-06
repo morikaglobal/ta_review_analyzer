@@ -253,6 +253,8 @@ def search_results(urlsearch):
         # #reviews with positive score only
         pos_lines_positive = df[df.label == 1].reviewtext
         print("priting positive reviews: ")
+        no_of_positivereviews = len(pos_lines_positive)
+        print(no_of_positivereviews)
         print(pos_lines_positive)
 
         positive = []
@@ -260,6 +262,7 @@ def search_results(urlsearch):
             positive.append(i)
 
         print(positive)
+        positive_samples = positive[0:5]
 
         #reviews with negative score only
         pos_lines_negative = df[df.label == -1].reviewtext
@@ -267,7 +270,22 @@ def search_results(urlsearch):
         # print("type of pos_lines_positive: ")
         print(type(pos_lines_positive)) #list
         print("printing negative reviews:")
+        no_of_negativereviews = len(pos_lines_negative)
+        print(no_of_negativereviews)
         print(pos_lines_negative)
+
+        negative = []
+
+        if len(negative) == 0:
+            negative.append("No negative reviews were found in the latest 100 reviews for the attraction.")
+        else:
+            for i in pos_lines_negative:
+                negative.append(i)
+
+        print(negative)
+        negative_samples = negative[0:5]
+
+
         #reviews with neutral score only
         pos_lines_neutral = df[df.label == 0].reviewtext
 
@@ -356,11 +374,11 @@ def search_results(urlsearch):
         pos_freq = nltk.FreqDist(filtered_text_positive)
         print("common words in positive reviews (only) are: ")
         print(type(pos_freq))
-        print(pos_freq.most_common(20))
+        print(pos_freq.most_common(10))
 
         # pos_lines_positive = df[df.label == 1].reviewtext
 
-        common_words_positive = pos_freq.most_common(20)
+        common_words_positive = pos_freq.most_common(10)
         print(type(common_words_positive)) #list
         print(common_words_positive) #list of top 20 positive common words
 
@@ -373,38 +391,45 @@ def search_results(urlsearch):
             positive_top_words.append(word_text)
             positive_top_words_freq.append(word_freq)
 
-            
-        
         print(positive_top_words)
         print(positive_top_words_freq)
-
-        # test =  []
-        # test2 = {}
-        # test3 = []
-        # test4 = {}
-
-
-
-
-        # # test = dict(pos_freq.most_common(20))
-        # # test2 = list(pos_freq.most_common(20))
-        # test3 = dict(pos_freq)
-        # test4 = list(pos_freq)
-        # print(type(test3))
-        # print(type(test4))
-        # print(test3)
-        # print(test4)
 
         # negative
         pos_freq_negative = nltk.FreqDist(filtered_text_negative)
         print("common words in negative reviews are: ")
-        print(pos_freq_negative.most_common(20))
+        print(pos_freq_negative.most_common(10)) #empty list if zero negative reviews
+
+        common_words_negative = pos_freq_negative.most_common(10)
+        print(type(common_words_negative)) #list
+        print(common_words_negative) #list of top 20 positive common words
+
+        negative_top_words = []
+        negative_top_words_freq = []
+
+        if len(common_words_negative) == 0:
+            negative_top_words.append("No negative reviews were found in the latest 100 reviews for the attraction")
+            # negative_top_words_freq.append("No negative reviews were found in the latest 100 reviews for the attraction.")
+        else:
+            for i in common_words_negative:
+                word_text = i[0]
+                # print(word_text)
+                word_freq = i[1]
+                negative_top_words.append(word_text)
+                negative_top_words_freq.append(word_freq)
+
+        print(negative_top_words)
+        print(negative_top_words_freq)
 
         
         # return ("ohoho")
         return render_template("test2.html", search_string = search_string, location = location,
-        positive=positive, positive_top_words=positive_top_words,
-        positive_top_words_freq=positive_top_words_freq)
+        positive_samples=positive_samples, negative_samples=negative_samples,
+        positive_top_words=positive_top_words,
+        positive_top_words_freq=positive_top_words_freq,
+        negative_top_words=negative_top_words,
+        negative_top_words_freq=negative_top_words_freq,
+        no_of_positivereviews=no_of_positivereviews,
+        no_of_negativereviews=no_of_negativereviews)
         return render_template("test.html", search_string = search_string)
         
         

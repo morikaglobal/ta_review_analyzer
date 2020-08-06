@@ -15,10 +15,33 @@
     <div class="container p-3 my-3">
         <div class="page-top px-4">
             <h4>Tripadvisor Review Analyzer</h4>
+            <h6>The attraction on the Tripadvisor link you have entered has been analyzed as follows:</h6>
 
             <h6>{{ search_string }}</h6>
+            <br>
 
+            <h6>According to the latest 100 reviews for the attraction:<br>
+            {{ no_of_positivereviews }} reviews have been analyzed as POSITIVE reviews and<br>
+            {{ no_of_negativereviews }} reviews have been analyzed as NEGATIVE reviews for the attraction<br>
+            the rest of the reviews have been analyzed as NEUTRAL reviews.</h6>
+            <br>
+            <h6>Few samples of POSITIVE reviews for the attraction: </h6>
 
+            {% for i in positive_samples %}
+                <ul>
+                    <h7>{{ i }}</h7>
+                </ul>
+            {% endfor %}
+            <br>
+            <h6>Few samples of NEGATIVE reviews for the attraction: </h6>
+
+            {% for i in negative_samples %}
+                <ul>
+                    <h7>{{ i }}</h7>
+                </ul>
+            {% endfor %}
+
+            <h6>Most frequently used words and its frequency found in POSITIVE reviews: </h6>
             {% for i in positive_top_words %}
                 {% set item_1 = positive_top_words[loop.index-1] %}
                 {% set item_2 = positive_top_words_freq[loop.index-1] %}
@@ -26,21 +49,18 @@
                     <h6>{{ item_1 }} : {{ item_2 }}</h6>
                 </ul>
 
-
-                <!-- {% for j in positive_top_words_freq %}
-                <ul>
-                    <h6>{{ i }} : {{ j }}</h6>
-                </ul>
-                {% endfor %} -->
             {% endfor %}
-
-
-            {% for i in positive %}
+            <br>
+            <h6>Most frequently used words and its frequency found in NEGATIVE reviews: </h6>
+            {% for i in negative_top_words %}
+                {% set item_1 = negative_top_words[loop.index-1] %}
+                {% set item_2 = negative_top_words_freq[loop.index-1] %}
                 <ul>
-                    <h6>{{ i }}</h6>
+                    <h6>{{ item_1 }} : {{ item_2 }}</h6>
                 </ul>
-            {% endfor %}
 
+            {% endfor %}
+            <br>
             
             {% for i in location %}
                 <ul>
