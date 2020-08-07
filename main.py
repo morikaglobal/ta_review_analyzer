@@ -122,59 +122,59 @@ def search_results(urlsearch):
                 list['reviewtext'] = container[j].text
                 lowercase_text = container[j].text.lower()
 
-                # removing puncutations
-                testwords = nltk.word_tokenize(lowercase_text)
-                test_words = [word for word in testwords if word.isalnum()]
-                list['reviewtext'] = test_words
-                # print("puncutations removed: ")
-                # print(test_words)
+                # # removing puncutations
+                # testwords = nltk.word_tokenize(lowercase_text)
+                # test_words = [word for word in testwords if word.isalnum()]
+                # list['reviewtext'] = test_words
+                # # print("puncutations removed: ")
+                # # print(test_words)
 
-                spelling_corrected = []
+                # spelling_corrected = []
 
-                #spelling correction
-                for word in test_words:
-                    if word == "disney" or "hong" or "kong" or "hk": 
-                        spelling_corrected.append(word)
-                    else:
-                        output = str(TextBlob(word).correct())
-                        spelling_corrected.append(word)
+                # #spelling correction
+                # for word in test_words:
+                #     if word == "disney" or "hong" or "kong" or "hk": 
+                #         spelling_corrected.append(word)
+                #     else:
+                #         output = str(TextBlob(word).correct())
+                #         spelling_corrected.append(word)
 
                 print("spelling_corrected: ")
                 print(type(spelling_corrected))
 
-                #breaking down words by words
-                stop_words = set(stopwords.words("english"))
-                # word_tokens = word_tokenize(lowercase_text)
-                corrected_text = ' '.join(spelling_corrected)
-                word_tokens = word_tokenize(corrected_text)
-                # print(word_tokens)
+                # #breaking down words by words
+                # stop_words = set(stopwords.words("english"))
+                # # word_tokens = word_tokenize(lowercase_text)
+                # corrected_text = ' '.join(spelling_corrected)
+                # word_tokens = word_tokenize(corrected_text)
+                # # print(word_tokens)
 
-                # filtering and removing stop words
-                filtered_text = [w for w in word_tokens if not w in stop_words]
+                # # filtering and removing stop words
+                # filtered_text = [w for w in word_tokens if not w in stop_words]
 
-                filtered_text = []
+                # filtered_text = []
 
-                # removing stop words and stemming
-                stemmed = []
+                # # removing stop words and stemming
+                # stemmed = []
                 
-                for w in word_tokens:
-                    if w not in stop_words:
+                # for w in word_tokens:
+                #     if w not in stop_words:
                         
-                        filtered_text.append(w)
-                        stemmed_text = ps.stem(w)
-                        stemmed.append(stemmed_text)
+                #         filtered_text.append(w)
+                #         stemmed_text = ps.stem(w)
+                #         stemmed.append(stemmed_text)
 
                         
-                print("stop words removed: ")
-                # print(filtered_text)
-                data_for_commonwords.append(filtered_text)
+                # print("stop words removed: ")
+                # # print(filtered_text)
+                # data_for_commonwords.append(filtered_text)
 
         
-                stemmed_text = ' '.join(stemmed)
-                print("stemmed: ")
-                # print(stemmed_text)
+                # stemmed_text = ' '.join(stemmed)
+                # print("stemmed: ")
+                # # print(stemmed_text)
                 
-                reviewtext_to_analyze.append(stemmed_text)
+                # reviewtext_to_analyze.append(stemmed_text)
 
                 try:
                     locationtext = location_div[j].find_element_by_xpath('.//span[@class="default _3J15flPT small"]')
@@ -185,7 +185,10 @@ def search_results(urlsearch):
                     location.append("no location")
 
 
-                scraped_data.append(list)
+                return (location)
+
+
+                # scraped_data.append(list)
 
                 # print("scraped_data for this page is: ")
                 # # print(type(scraped_data)) #list
