@@ -90,6 +90,8 @@ def search_results(urlsearch):
         scraped_data = []
         location = []
 
+        return (search_string)
+
         for i in range (0, 1):
             # driver.get(search_string)
             # driver.implicitly_wait(10)
@@ -100,7 +102,7 @@ def search_results(urlsearch):
             container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
             # print("container : ")
             # print(container)
-            return container
+            
             num_page_items = len(container)
             title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
             # return(num_page_items)
