@@ -90,7 +90,7 @@ def search_results(urlsearch):
         scraped_data = []
         location = []
 
-        return (search_string)
+        # return (search_string)
 
         for i in range (0, 1):
             # driver.get(search_string)
@@ -121,6 +121,9 @@ def search_results(urlsearch):
                 # print(title[j].text)
                 list['reviewtitle'] = title[j].text
                 print(title[j].text)
+                return (title[j].text)
+
+
 
                 list['reviewtext'] = container[j].text
                 lowercase_text = container[j].text.lower()
