@@ -100,6 +100,7 @@ def search_results(urlsearch):
             container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
             # print("container : ")
             # print(container)
+            return container
             num_page_items = len(container)
             title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
             # return(num_page_items)
