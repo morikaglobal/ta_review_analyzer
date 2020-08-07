@@ -209,7 +209,7 @@ def search_results(urlsearch):
             print("clicked")
             time.sleep(50)
 
-        return location
+        return ("success")
         print("collected data: ")
         print(type(scraped_data)) #list
         print(scraped_data)
