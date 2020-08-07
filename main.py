@@ -186,12 +186,13 @@ def search_results(urlsearch):
                     locationtext = location_div[j].find_element_by_xpath('.//span[@class="default _3J15flPT small"]')
                     print(locationtext.text)
                     location.append(locationtext.text)
+                    return locationtext.text
                 except:
                     print("no location")
                     location.append("no location")
 
 
-                return (location)
+                # return (location)
 
 
                 # scraped_data.append(list)
