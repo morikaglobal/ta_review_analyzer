@@ -121,7 +121,7 @@ def search_results(urlsearch):
                 # print(title[j].text)
                 list['reviewtitle'] = title[j].text
                 print(title[j].text)
-                return (title[j].text)
+                # return (title[j].text) worked on the web
 
 
 
@@ -145,8 +145,8 @@ def search_results(urlsearch):
                 #         output = str(TextBlob(word).correct())
                 #         spelling_corrected.append(word)
 
-                print("spelling_corrected: ")
-                print(type(spelling_corrected))
+                # print("spelling_corrected: ")
+                # print(type(spelling_corrected))
 
                 # #breaking down words by words
                 # stop_words = set(stopwords.words("english"))
