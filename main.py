@@ -15,13 +15,13 @@ from selenium.common.exceptions import NoSuchElementException
 # from nltk.stem import PorterStemmer
 # ps = PorterStemmer()
 
-from textblob import TextBlob
-from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
-from pprint import pprint
-import pandas as pd
-import numpy as np
-import seaborn as sns
-sns.set(style='darkgrid', context='talk', palette='Dark2')
+# from textblob import TextBlob
+# from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
+# from pprint import pprint
+# import pandas as pd
+# import numpy as np
+# import seaborn as sns
+# sns.set(style='darkgrid', context='talk', palette='Dark2')
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
@@ -92,7 +92,7 @@ def search_results(urlsearch):
 
         # return (search_string)
 
-        for i in range (0, 1):
+        for i in range (0, 2):
             # driver.get(search_string)
             # driver.implicitly_wait(10)
             read_more = driver.find_element_by_class_name("_36B4Vw6t")
