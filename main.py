@@ -208,7 +208,7 @@ def search_results(urlsearch):
             
             driver.find_element_by_xpath('//a[@class="ui_button nav next primary "]').click()
             print("clicked")
-            return ("success")
+            # return ("success") worked
             time.sleep(50)
 
         # return ("success")
