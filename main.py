@@ -205,12 +205,12 @@ def search_results(urlsearch):
             # print(type(scraped_data)) #list
             # print(scraped_data)
 
-            
+            return ("success")
             driver.find_element_by_xpath('//a[@class="ui_button nav next primary "]').click()
             print("clicked")
             time.sleep(50)
 
-        return ("success")
+        # return ("success")
         print("collected data: ")
         print(type(scraped_data)) #list
         print(scraped_data)
