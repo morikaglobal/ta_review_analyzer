@@ -36,52 +36,49 @@
 </div>
 
 <span>Please visit my <a href="https://www.morikaglobal.com" target="_blank">Portfolio site</a> or <a
-        href="https://github.com/morikaglobal/newsdatasummary_app" target="_blank">my github </a> for the
-    code of this app.</span><br><br>
+        href="https://github.com/morikaglobal/ta_review_analyzer_heroku" target="_blank">my github </a> for the
+    code of this app</span><br><br>
 <h6>About this app</h6>
 
-<p><span>Previously I built a simple <a href="https://pythonnewsscraper.herokuapp.com/" target="_blank">News
-            Scraper APP</a> on the web using <strong>Python</strong> to scrape</span><span>the latest news
-        from a specific news site using <strong>Beautiful Soup</strong> and <strong>Flask</strong>.</span>
-    <br><br>
-    <span>This time, I built slightly more advanced version of the app to scrape news data from a news
-        article</span><span> using <strong>Python</strong> package <strong>newspaper3k</strong>, then deployed the app using <strong>Flask</strong> and on
-        <strong>heroku</strong>.</span>
-
+<p><span>Tripadvisor Review Analyzer App for tourist attractions using <strong>Python</strong> and
+        <strong>selenium</strong></span>
+    <span>to scrape and extract the latest reviews from an attraction on the Tripadvisor URL link the user enters on the
+        app landing page,</span>
+    <span>then the scraped review data are cleaned, processed and analyzed with Natural Language Processing toolkit
+        <strong>NLTK</strong></span><span>and Sentiment Analysis is performed on the contents of the reviews.</span>
     <br><br>
 
-    <span>First of all, when the URL link form above captures the URL link of a news article,</span><span> the
-        <strong>newspaper3k</strong> package will extract and parse the data of the article with its Natural Language Processing.</span><span>For form input
-        handling and validation, I used <strong>WTForms</strong> and
-        <strong>requests</strong> libraries to grab the URL link entered in the form.</span><span>
-        Then, from the data extracted I extract following data to render on the first part of my result
-        page:</span>
-    <br><br>
+    <span>First of all, when the URL link of an attraction on Tripadvisor is entered by the
+        user,</span><span><strong>selenium</strong> will scrape the data for the latest 100 reviews written for the
+        attraction on Tripadvisor page</span>
+    <span>*(less than 100 reviews will be analyzed if the attraction is fairly new or unknown and has less than 100
+        reviews written on its Tripadvisor page)</span>
+    <span>then, using the Natural Language Toolkit python package <strong>NLTK</strong>
+        <span>and its built-in <strong>Vader Sentiment Analyzer</strong>,
+            classify the reviews written for the attraction as positive, negative or neutral using a lexicon of positive
+            and negative words.</span>
+        <br><br>
+        <span>Once the reviews are classified, data processing is performed on positive and negative reviews data
+            respectively,</span><span><strong>Tokenization</strong> to break down the review sentences into meaningful
+            elements as tokens, lowercase texts and remove puctuations</span><span>then remove the words such as "the",
+            "is", "what" and so on from the tokenized data that are irrelevant to text sentiment</span><span>and dont
+            provide any valuable information which are <strong>stopwords</strong>.</span>
+        <br><br>
+        <span>The next step is, again with NLTK, get the most common words found in both positive and negative review
+            groups</span>
+        <span>and the following data is available and displayed as analyzed results on the results page:
+        </span>
+        <br><br>
 
+        <strong>number of reviews classified as positive</strong><br>
+        <strong>number of reviews classified as negative</strong><br>
+        <strong>few samples of reviews classified as positive</strong><br>
+        <strong>few samples of reviews classified as negative</strong><br>
+        <strong>Most frequently used words and its frequency found in POSITIVE reviews</strong><br>
+        <strong>Most frequently used words and its frequency found in NEGATIVE reviews</strong><br>
+        <strong>Top 10 reviewer locations</strong>
+        <br><br>
 
-    <strong>Title</strong><br>
-    <strong>Published date</strong><br>
-    <strong>Author</strong><br>
-    <strong>Top image (source link)</strong>
-    <br><br>
-
-    <span>At the same time, using the full text of the article extracted,</span><span>my app also generates
-        <strong>WordCloud</strong> for the news article.</span><span>The WordCloud on the result page will display the
-        words that are the most frequent among the news text extracted.</span><span><strong>io</strong> library is used
-        to keep the WordCloud image in memory and <strong>base64</strong> to convert the resulting bytes</span><span> to
-        base64 in order to return the image as part of our HTML response and render the image.</span>
-        <span>* Please note WordCloud is currently disabled due to image storage issue</span>
-    <br><br>
-
-    <span>Lastly <strong>newspaper3k</strong> can also run its simple natural language processing to extract keywords from the news and also produce the summary of the article text.</span><br><br>
-
-    <strong>Keywords (WordCloud image)</strong><br>
-    <strong>Summary</strong>
-    <br><br>
-    <span>Keywords(WorldCloud) image and the summary of the news text will be displayed as the second part
-        of the result page.</span>
-
-    <br><br>
 </p>
 
 {% endblock %}

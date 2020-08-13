@@ -5,7 +5,7 @@ from forms import UrlSearchForm
 import time
 import os
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+# from selenium.common.exceptions import NoSuchElementException
 
 import nltk
 nltk.download("punkt")
@@ -23,9 +23,7 @@ import numpy as np
 import seaborn as sns
 sns.set(style='darkgrid', context='talk', palette='Dark2')
 
-
-
-# commented out for heroku deployment
+# comment out for heroku deployment
 driver_location = r"C:\Users\masao\Anaconda3\chromedriver.exe"
 
 options = webdriver.ChromeOptions()
@@ -36,11 +34,6 @@ driver = webdriver.Chrome(executable_path=driver_location, options=options)
 
 app = Flask(__name__)
 
-@app.route('/')
-
-# def index():
-#     return ("Hello")
-
 @app.route('/', methods = ["GET", "POST"])
 def index():
 
@@ -49,17 +42,9 @@ def index():
     search_string = urlsearch.data['search']
 
     if request.method == "POST":
-    
-        
+     
         try:
 
-            #test
-            # driver.get(search_string)
-            # errors.append(
-            #     "Getting URL"
-            # )   
-            
-            
             # driver.implicitly_wait(10)
             if search_string.startswith("https://www.tripadvisor.com/", 0):
                 errors.append(
@@ -93,9 +78,10 @@ def search_results(urlsearch):
         scraped_data = []
         location = []
 
-        for i in range (0, 2):
+        for i in range (0, 20):
             # driver.get(search_string)
             # driver.implicitly_wait(10)
+            
             #expand review text box
             read_more = driver.find_element_by_class_name("_36B4Vw6t")
             read_more.click()
@@ -118,10 +104,6 @@ def search_results(urlsearch):
 
                 list = {}
 
-        
-                # list['title'] = title[j].text
-                # print(list['title'])
-                # print(title[j].text)
                 list['reviewtitle'] = title[j].text
                 print(title[j].text)
 
@@ -139,7 +121,7 @@ def search_results(urlsearch):
 
                 #spelling correction
                 for word in test_words:
-                    if word == "disney" or "hong" or "kong" or "hk": 
+                    if word == "disney" or "hong" or "kong" or "hk" or "sg": 
                         spelling_corrected.append(word)
                     else:
                         output = str(TextBlob(word).correct())
@@ -157,7 +139,6 @@ def search_results(urlsearch):
 
                 # filtering and removing stop words
                 filtered_text = [w for w in word_tokens if not w in stop_words]
-
                 filtered_text = []
 
                 # removing stop words and stemming
@@ -188,19 +169,12 @@ def search_results(urlsearch):
                     location.append(locationtext.text)
                 except:
                     print("no location")
-                    location.append("no location")
+                    location.append("no reviewr location disclosed")
 
 
                 scraped_data.append(list)
 
-                # print("scraped_data for this page is: ")
-                # # print(type(scraped_data)) #list
-                # print(scraped_data)
-
-            # print("scraped_data: ")
-            # print(type(scraped_data)) #list
-            # print(scraped_data)
-
+            
             driver.find_element_by_xpath('//a[@class="ui_button nav next primary "]').click()
             print("clicked")
             time.sleep(50)
@@ -216,7 +190,7 @@ def search_results(urlsearch):
         print(location[0])
         print(reviewtext_to_analyze)
             
-        # return ('hohoho')
+        # return ('test')
 
         sia = SIA()
         # print("ready data: ")
@@ -255,13 +229,13 @@ def search_results(urlsearch):
         print("priting positive reviews: ")
         no_of_positivereviews = len(pos_lines_positive)
         print(no_of_positivereviews)
-        print(pos_lines_positive)
+        # print(pos_lines_positive)
 
         positive = []
         for i in pos_lines_positive:
             positive.append(i)
 
-        print(positive)
+        # print(positive)
         positive_samples = positive[0:5]
 
         #reviews with negative score only
@@ -284,6 +258,8 @@ def search_results(urlsearch):
 
         print(negative)
         negative_samples = negative[0:5]
+        print("NEGATIVE REVIEW:")
+        print(negative_samples)
 
 
         #reviews with neutral score only
@@ -344,14 +320,14 @@ def search_results(urlsearch):
                 spelling_corrected_negative.append(output)
 
         print("spelling corrected: ")
-        print(spelling_corrected_positive) 
+        # print(spelling_corrected_positive) 
 
         #breaking down words by words
         stop_words = set(stopwords.words("english"))
         # positive 
         corrected_text_positive = ' '.join(spelling_corrected_positive)
         print("corrected_text_positive: ")
-        print(corrected_text_positive)
+        # print(corrected_text_positive)
         print(type(corrected_text_positive)) #str
         word_tokens_positive = word_tokenize(corrected_text_positive)
 
@@ -420,16 +396,37 @@ def search_results(urlsearch):
         print(negative_top_words)
         print(negative_top_words_freq)
 
-        
+        #top 10 reviewer location
+        location_freq = nltk.FreqDist(location)
+        print("location frequency is: ")
+        # print(type(location_freq))
+        top_locations_freq = location_freq.most_common(10)
+        print(top_locations_freq)
+        # print(type(top_locations_freq))
+
+        reviewer_top_location = []
+        reviewer_top_location_freq = []
+        for i in top_locations_freq:
+            location_text = i[0]
+            # print(word_text)
+            location_freq = i[1]
+            reviewer_top_location.append(location_text)
+            reviewer_top_location_freq.append(location_freq)
+
+        print(reviewer_top_location)
+        print(reviewer_top_location_freq)
+
         # return ("ohoho")
-        return render_template("test2.html", search_string = search_string, location = location,
+        return render_template("test2.html", search_string = search_string,
         positive_samples=positive_samples, negative_samples=negative_samples,
         positive_top_words=positive_top_words,
         positive_top_words_freq=positive_top_words_freq,
         negative_top_words=negative_top_words,
         negative_top_words_freq=negative_top_words_freq,
         no_of_positivereviews=no_of_positivereviews,
-        no_of_negativereviews=no_of_negativereviews)
+        no_of_negativereviews=no_of_negativereviews,
+        reviewer_top_location=reviewer_top_location,
+        reviewer_top_location_freq=reviewer_top_location_freq)
         return render_template("test.html", search_string = search_string)
         
         

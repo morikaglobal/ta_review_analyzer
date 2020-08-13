@@ -24,6 +24,11 @@ span {
     margin-right: 0.2rem;
 }
 
+.resulttext {
+    color: blue;
+    font-size: 18px;
+}
+
 .form-url {
     border: none;
     height: 50px;

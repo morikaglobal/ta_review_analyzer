@@ -15,17 +15,17 @@
     <div class="container p-3 my-3">
         <div class="page-top px-4">
             <h4>Tripadvisor Review Analyzer</h4>
-            <h6>The attraction on the Tripadvisor link you have entered has been analyzed as follows:</h6>
+            <h5>Analyzed data on this page is for the attraction on the Tripadvisor link you have entered below:</h5>
 
-            <h6>{{ search_string }}</h6>
+            <h6><a href="{{ search_string }}" target="_blank">{{ search_string }}</a></h6>
             <br>
 
-            <h6>According to the latest 100 reviews for the attraction:<br>
-            {{ no_of_positivereviews }} reviews have been analyzed as POSITIVE reviews and<br>
-            {{ no_of_negativereviews }} reviews have been analyzed as NEGATIVE reviews for the attraction<br>
+            <h5>According to the latest 100 reviews for the attraction:</h5>
+            <h6><span class="resulttext">{{ no_of_positivereviews }}</span> reviews have been analyzed as POSITIVE reviews and<br>
+            <span class="resulttext">{{ no_of_negativereviews }}</span> reviews have been analyzed as NEGATIVE reviews for the attraction<br>
             the rest of the reviews have been analyzed as NEUTRAL reviews.</h6>
             <br>
-            <h6>Few samples of POSITIVE reviews for the attraction: </h6>
+            <h5>Few samples of POSITIVE reviews for the attraction: </h5>
 
             {% for i in positive_samples %}
                 <ul>
@@ -33,15 +33,17 @@
                 </ul>
             {% endfor %}
             <br>
-            <h6>Few samples of NEGATIVE reviews for the attraction: </h6>
+            <h5>Few samples of NEGATIVE reviews for the attraction: </h5>
 
             {% for i in negative_samples %}
                 <ul>
                     <h7>{{ i }}</h7>
                 </ul>
             {% endfor %}
+            <br>
 
-            <h6>Most frequently used words and its frequency found in POSITIVE reviews: </h6>
+            <h5>Most frequently used words and its frequency found in POSITIVE reviews: </h5>
+            <br>
             {% for i in positive_top_words %}
                 {% set item_1 = positive_top_words[loop.index-1] %}
                 {% set item_2 = positive_top_words_freq[loop.index-1] %}
@@ -51,7 +53,8 @@
 
             {% endfor %}
             <br>
-            <h6>Most frequently used words and its frequency found in NEGATIVE reviews: </h6>
+            <h5>Most frequently used words and its frequency found in NEGATIVE reviews: </h5>
+            <br>
             {% for i in negative_top_words %}
                 {% set item_1 = negative_top_words[loop.index-1] %}
                 {% set item_2 = negative_top_words_freq[loop.index-1] %}
@@ -62,18 +65,20 @@
             {% endfor %}
             <br>
             
-            {% for i in location %}
+            <h5>Top 10 reviewer locations: </h5>
+            <br>
+            {% for i in reviewer_top_location %}
+                {% set item_1 = reviewer_top_location[loop.index-1] %}
+                {% set item_2 = reviewer_top_location_freq[loop.index-1] %}
                 <ul>
-                    <h6>{{ i }}</h6>
+                    <h6>{{ item_1 }} : {{ item_2 }}</h6>
                 </ul>
+
             {% endfor %}
+            <br>
             
-
-            <h6>{{ location[0] }}</h6>
-
-
             <span>Please visit my <a href="https://www.morikaglobal.com" target="_blank">Portfolio site</a> or <a
-                    href="https://github.com/morikaglobal/newsdatasummary_app" target="_blank">my github </a> for the
+                    href="https://github.com/morikaglobal/ta_review_analyzer_heroku" target="_blank">my github </a> for the
                 code of this app.</span>
 
         </div>
