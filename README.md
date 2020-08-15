@@ -16,12 +16,8 @@ respectively, <strong>Tokenization</strong> to break down the review sentences i
 "is", "what" and so on from the tokenized data that are irrelevant to text sentiment and dont
 provide any valuable information which are <strong>stopwords</strong>
 
+The next step is, again with NLTK, get the most common words found in both positive and negative review groups and the following data is available and displayed as analyzed results on the results page:
 
-![Results Page](images/resultpage.png)
-
-The next step is, again with NLTK, get the most common words found in both positive and negative review
-groups and the following data is available and displayed as analyzed results on the results page:
-       
 <strong>number of reviews classified as positive</strong><br>
 <strong>number of reviews classified as negative</strong><br>
 <strong>few samples of reviews classified as positive</strong><br>
@@ -29,5 +25,12 @@ groups and the following data is available and displayed as analyzed results on 
 <strong>Most frequently used words and its frequency found in POSITIVE reviews</strong><br>
 <strong>Most frequently used words and its frequency found in NEGATIVE reviews</strong><br>
 <strong>Top 10 reviewer locations</strong>
+
+This is how the results page looks like:
+
+![Results Page](images/resultpage.png)
+
+      
+
 
 
