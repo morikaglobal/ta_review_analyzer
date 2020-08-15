@@ -242,7 +242,7 @@ def search_results(urlsearch):
         pos_lines_negative = df[df.label == -1].reviewtext
 
         # print("type of pos_lines_positive: ")
-        print(type(pos_lines_positive)) #list
+        print(type(pos_lines_negative)) #list
         print("printing negative reviews:")
         no_of_negativereviews = len(pos_lines_negative)
         print(no_of_negativereviews)
@@ -250,11 +250,13 @@ def search_results(urlsearch):
 
         negative = []
 
-        if len(negative) == 0:
+        if no_of_negativereviews == 0:
             negative.append("No negative reviews were found in the latest 100 reviews for the attraction.")
         else:
             for i in pos_lines_negative:
+                print(i)
                 negative.append(i)
+
 
         print(negative)
         negative_samples = negative[0:5]
