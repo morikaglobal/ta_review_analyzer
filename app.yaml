@@ -5,3 +5,7 @@ handlers:
   secure: always
   script: auto
 
+
+env_variables:
+  NLTK_DATA: './nltk_data/'
+
