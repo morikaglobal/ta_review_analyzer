@@ -19,3 +19,7 @@ __pycache__/
 /setup.cfg
 
 test/
+env/
+
+numpy-1.20.3+mkl-cp37-cp37m-win_amd64.whl
+scipy-1.5.4-cp37-cp37m-win_amd64.whl
