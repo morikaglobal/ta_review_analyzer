@@ -13,8 +13,8 @@ kiwisolver==1.2.0
 MarkupSafe==1.1.1
 matplotlib==3.3.0
 # nltk==3.5
-numpy==1.19.1
-pandas==1.1.0
+# numpy==1.19.1
+# pandas==1.1.0
 Pillow==8.2.0
 pyparsing==2.4.7
 python-dateutil==2.8.1
