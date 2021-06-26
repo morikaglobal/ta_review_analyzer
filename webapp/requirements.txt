@@ -3,11 +3,12 @@
 # chromedriver-binary-auto==0.1
 # click==7.1.2
 # cycler==0.10.0
+distribute
 Flask==1.1.2
-# gunicorn==20.0.4
+gunicorn==20.0.4
 # idna==2.10
 # itsdangerous==1.1.0
-# Jinja2==2.11.3
+Jinja2==2.11.3
 # joblib==0.16.0
 # kiwisolver==1.2.0
 # MarkupSafe==1.1.1
@@ -27,5 +28,6 @@ selenium==3.141.0
 # six==1.15.0
 # tqdm==4.47.0
 # urllib3==1.25.11
-# Werkzeug==1.0.1
+Werkzeug==1.0.1
 # WTForms==2.3.1
+wsgiref
