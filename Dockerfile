@@ -4,6 +4,7 @@ FROM heroku/miniconda
 ADD ./webapp/requirements.txt /tmp/requirements.txt
 
 # Install dependencies
+RUN pip install --upgrade pip
 RUN pip install -qr /tmp/requirements.txt
 
 # Add our code
