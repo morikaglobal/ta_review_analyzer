@@ -1,2 +1,7 @@
+build-essential
+gfortran
+libgfortran3
+python-dev
 libblas-dev
-liblapack-dev
+libatlas-base-dev
+cython
