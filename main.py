@@ -1,19 +1,16 @@
 # coding: UTF-8
 
-# import logging
-# import os
-
-from flask import Flask, request
+from flask import Flask, render_template, request
 import requests
+from forms import UrlSearchForm
 
 import time
 import os
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-
-# logging.basicConfig(level=logging.INFO)
-# logger=logging.getLogger(__name__)
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
@@ -30,18 +27,15 @@ driver_path = '/app/.chromedriver/bin/chromedriver'
 driver= webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
 
 
-
-
-
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods = ["GET", "POST"])
 def index(): 
 
     url = "http://www.yahoo.co.jp"
     driver.get(url)   
     
-    return ("Hello Hello getting yahoo")
+    return ("Hello Hello TESTING HEROKU")
     
 
 
