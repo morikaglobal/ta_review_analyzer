@@ -107,13 +107,14 @@ def search_results(urlsearch):
             driver.get(search_string)
             print("GETTING URL")
             driver.implicitly_wait(10)
-            return("TESTING WORKED")
+            # return("TESTING WORKED")
             read_more = driver.find_element_by_class_name("_36B4Vw6t")
             print("found it")
             read_more.click()
             print("clicked")
 
             
+            return("TESTING WORKED")
 
             list = {}
 
