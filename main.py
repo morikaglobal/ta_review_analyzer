@@ -92,6 +92,8 @@ def search_results(urlsearch):
     urlsearch = UrlSearchForm(request.form)
     search_string = urlsearch.data['search']
 
+    return(search_string)
+
 
     try:
         print("working")
