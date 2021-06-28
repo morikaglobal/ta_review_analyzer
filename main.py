@@ -92,8 +92,6 @@ def search_results(urlsearch):
     urlsearch = UrlSearchForm(request.form)
     search_string = urlsearch.data['search']
 
-    return(search_string)
-
 
     try:
         print("working")
@@ -113,6 +111,8 @@ def search_results(urlsearch):
             print("found it")
             read_more.click()
             print("clicked")
+
+            return("TESTING WORKED")
 
             list = {}
 
