@@ -114,7 +114,7 @@ def search_results(urlsearch):
             print("clicked")
 
             
-            return("TESTING WORKED")
+            # return("TESTING WORKED")
 
             list = {}
 
@@ -127,6 +127,7 @@ def search_results(urlsearch):
 
             print(type(container))  #webelement
             print(container)
+            return("TESTING WORKED")
             # for i in container:
             #     print("PRINTING")
             #     print(i.text)
