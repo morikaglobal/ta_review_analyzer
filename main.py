@@ -106,7 +106,7 @@ def search_results(urlsearch):
             print("TEST")
             driver.get(search_string)
             print("GETTING URL")
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(20)
             # return("TESTING WORKED")
             read_more = driver.find_element_by_class_name("_36B4Vw6t")
             print("found it")
@@ -127,7 +127,7 @@ def search_results(urlsearch):
 
             print(type(container))  #webelement
             print(container)
-            return("TESTING WORKED")
+            # return("TESTING WORKED")
             # for i in container:
             #     print("PRINTING")
             #     print(i.text)
@@ -147,6 +147,8 @@ def search_results(urlsearch):
             title = container.find_elements_by_xpath('//div[@class="DrjyGw-P _1SRa-qNz _19gl_zL- _1z-B2F-n _2AAjjcx8"]/span')
             
             print("TITLE")
+            test = title[1].text
+            return(test)
 
             # print(title)
             print(type(title))  #list 
