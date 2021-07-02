@@ -4,11 +4,15 @@ from forms import UrlSearchForm
 
 import time
 import os
+# from telnetlib import EC
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import ui
 
 # import nltk
 # nltk.download("punkt")
@@ -33,7 +37,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-# driver_path = r'C:/Users/USER/chromedriver.exe'
+#driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
 driver_path = '/app/.chromedriver/bin/chromedriver'
@@ -103,23 +107,30 @@ def search_results(urlsearch):
         # return (search_string)
 
         for i in range (0, 2):
+
             print("TEST")
+            wait = ui.WebDriverWait(driver, 10)
+            print("load")
+            print(search_string)
             driver.get(search_string)
+            wait = ui.WebDriverWait(driver, 20)
             print("GETTING URL")
-            driver.implicitly_wait(20)
-            # return("TESTING WORKED")
-            read_more = driver.find_element_by_class_name("_36B4Vw6t")
-            print("found it")
-            read_more.click()
+
+            show_more = wait.until(lambda driver: driver.find_element_by_class_name("_36B4Vw6t"))
+            driver.execute_script("arguments[0].click();", show_more)
             print("clicked")
 
             
+            # read_more = driver.find_element_by_class_name("_36B4Vw6t")
+            # print("found it")
+            # read_more.click()
+            # print("clicked")
+
             # return("TESTING WORKED")
 
             list = {}
 
-            
-
+        
             container = driver.find_element_by_class_name('_1c8_1ITO')
             print(container.text)
             # for review_box in container:
