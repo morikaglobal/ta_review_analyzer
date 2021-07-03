@@ -41,10 +41,10 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-driver_path = r'C:/Users/USER/chromedriver.exe'
+# driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
-#driver_path = '/app/.chromedriver/bin/chromedriver'
+driver_path = '/app/.chromedriver/bin/chromedriver'
 
 driver= webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
 driver.implicitly_wait(10)
