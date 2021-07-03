@@ -16,15 +16,17 @@ from selenium.webdriver.support import ui
 
 import nltk
 # nltk.data.path.append('TA_REVIEW_ANALYZER/nltk_data')
+
+
+# import nltk
+nltk.download("punkt")
+
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
 sentence = "At eight o'clock on Thursday morning Arthur didn't feel very good."
 
 tokens = nltk.word_tokenize(sentence)
-
-# import nltk
-# nltk.download("punkt")
-
-# from nltk.corpus import stopwords
-# from nltk.tokenize import word_tokenize
 # from nltk.stem import PorterStemmer
 # ps = PorterStemmer()
 
