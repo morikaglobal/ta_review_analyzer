@@ -33,16 +33,22 @@ from selenium.webdriver.support import ui
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
 chrome_options.add_argument('--headless')
+# chrome_options.add_argument('--disable-gpu')
+# chrome_options.add_argument('--disable-extensions')
+# chrome_options.add_argument('--proxy-server="direct://"')
+
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-#driver_path = r'C:/Users/USER/chromedriver.exe'
+driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
-driver_path = '/app/.chromedriver/bin/chromedriver'
+#driver_path = '/app/.chromedriver/bin/chromedriver'
 
 driver= webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
+driver.implicitly_wait(10)
+
 
 
 app = Flask(__name__)
@@ -108,58 +114,81 @@ def search_results(urlsearch):
 
         for i in range (0, 2):
 
-            print("TEST")
-            wait = ui.WebDriverWait(driver, 10)
-            print("load")
-            print(search_string)
-            driver.get(search_string)
-            wait = ui.WebDriverWait(driver, 20)
-            print("GETTING URL")
+            for _ in range(3):   #try up to 3 times
+                try:
 
-            show_more = wait.until(lambda driver: driver.find_element_by_class_name("_36B4Vw6t"))
-            driver.execute_script("arguments[0].click();", show_more)
-            print("clicked")
+                    print("TEST")
+                    driver.implicitly_wait(10)
+                    # wait = ui.WebDriverWait(driver, 10)
+                    print("load")
+                    print(search_string)
+                    driver.get(search_string)
+                    time.sleep(10)
+                    wait = ui.WebDriverWait(driver, 20)
+                    print("GETTING URL")
 
-            
-            # read_more = driver.find_element_by_class_name("_36B4Vw6t")
-            # print("found it")
-            # read_more.click()
-            # print("clicked")
+                   
+                    # show_more = wait.until(lambda driver: driver.
+                    # element_to_be_clickable("_36B4Vw6t"))
+                    # driver.execute_script("arguments[0].click();", show_more)
+                    # print("clicked")
 
-            # return("TESTING WORKED")
+                    
+                    
+                    read_more = driver.find_element_by_class_name("_36B4Vw6t")
+                    print("found it")
+                    # read_more.click()   use excute_script below instead
+                    driver.execute_script("arguments[0].click();", read_more)
+                    print("clicked")
 
-            list = {}
+                
+                    # return("TESTING WORKED")
 
-        
-            container = driver.find_element_by_class_name('_1c8_1ITO')
-            print(container.text)
-            # for review_box in container:
-            #     print(type(review_box))
+                    list = {}
 
-            print(type(container))  #webelement
-            print(container)
-            # return("TESTING WORKED")
-            # for i in container:
-            #     print("PRINTING")
-            #     print(i.text)
-            print('TESTING')
-            
-            # return("Success")  
-            # container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
-           
-            
-            # num_page_items = len(container)   
-            # title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
-            print("OK TITLE")
-            # title = container.find_elements_by_xpath('./following-sibling::span[@class="_2tsgCuqy"]')
+                
+                    container = driver.find_element_by_class_name('_1c8_1ITO')
+                    print(container.text)
+                    # for review_box in container:
+                    #     print(type(review_box))
 
-            # title = container.find_element_by_xpath('//span[@class="_2tsgCuqy"]')
+                    print(type(container))  #webelement
+                    print(container)
+                    # return("TESTING WORKED")
+                    # for i in container:
+                    #     print("PRINTING")
+                    #     print(i.text)
+                    print('TESTING')
+                    
+                    # return("Success")  
+                    # container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
+                
+                    
+                    # num_page_items = len(container)   
+                    # title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
+                    print("OK TITLE")
+                    # title = container.find_elements_by_xpath('./following-sibling::span[@class="_2tsgCuqy"]')
 
-            title = container.find_elements_by_xpath('//div[@class="DrjyGw-P _1SRa-qNz _19gl_zL- _1z-B2F-n _2AAjjcx8"]/span')
-            
-            print("TITLE")
-            test = title[1].text
-            return(test)
+                    # title = container.find_element_by_xpath('//span[@class="_2tsgCuqy"]')
+
+                    title = container.find_elements_by_xpath('//div[@class="DrjyGw-P _1SRa-qNz _19gl_zL- _1z-B2F-n _2AAjjcx8"]/span')
+                    
+                    print("TITLE")
+                    test = title[1].text
+                    driver.quit()
+                    return(test)
+
+                except Exception as e:  #if error
+                    print("Error trying agan")
+                    time.sleep(5)
+                else: 
+                    # get out of the loop if no error
+                    
+                    break
+            else:
+                # if all 3 attemps fail
+                driver.quit()
+                return ("ERROR please try again")
 
             # print(title)
             print(type(title))  #list 
