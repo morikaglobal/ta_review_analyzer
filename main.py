@@ -14,6 +14,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support import ui
 
+import nltk
+# nltk.data.path.append('TA_REVIEW_ANALYZER/nltk_data')
+sentence = "At eight o'clock on Thursday morning Arthur didn't feel very good."
+
+tokens = nltk.word_tokenize(sentence)
+
 # import nltk
 # nltk.download("punkt")
 
@@ -41,7 +47,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-# driver_path = r'C:/Users/USER/chromedriver.exe'
+#driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
 driver_path = '/app/.chromedriver/bin/chromedriver'
@@ -114,7 +120,7 @@ def search_results(urlsearch):
 
         for i in range (0, 2):
 
-            for _ in range(3):   #try up to 3 times
+            for _ in range(1):   #try up to 1 time
                 try:
 
                     print("TEST")
@@ -127,14 +133,11 @@ def search_results(urlsearch):
                     wait = ui.WebDriverWait(driver, 20)
                     print("GETTING URL")
 
-                   
                     # show_more = wait.until(lambda driver: driver.
                     # element_to_be_clickable("_36B4Vw6t"))
                     # driver.execute_script("arguments[0].click();", show_more)
                     # print("clicked")
-
-                    
-                    
+  
                     read_more = driver.find_element_by_class_name("_36B4Vw6t")
                     print("found it")
                     # read_more.click()   use excute_script below instead
@@ -145,7 +148,6 @@ def search_results(urlsearch):
                     # return("TESTING WORKED")
 
                     list = {}
-
                 
                     container = driver.find_element_by_class_name('_1c8_1ITO')
                     print(container.text)
@@ -175,8 +177,40 @@ def search_results(urlsearch):
                     
                     print("TITLE")
                     test = title[1].text
+                    print(test)
+
+                    
+                    reviewtext = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 _2nPM5Opx"]/span')
+
+                    print("REVIEW TEXT")
+
+                    print(type(reviewtext))
+                    for a in reviewtext:
+                        print("THIS IS REVIEW TEXT")
+                        # print(a.text)
+                        list['reviewtext'] = a.text
+                        lowercase_text = a.text.lower()
+                        print(lowercase_text)
+
+            
+                    reviewer_location = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]/span')
+            
+                    print("REVIEWER LOCATION")
+
+            
+                    print(type(reviewer_location))  #list 
+                    print(reviewer_location)
+                    # for a in reviewer_location:
+                    #     print(a.text)
+
+                    # test2 = reviewer_location[1]
+
                     driver.quit()
-                    return(test)
+                    print(tokens)
+                    testing = tokens[4]
+                    return(testing)
+
+                    return(test) 
 
                 except Exception as e:  #if error
                     print("Error trying agan")
@@ -196,30 +230,9 @@ def search_results(urlsearch):
                 print(a.text)
 
 
-            reviewer_location = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]/span')
             
-            print("REVIEWER LOCATION")
 
             
-            print(type(reviewer_location))  #list 
-            for a in reviewer_location:
-                print(a.text)
-
-            print("TEST TEST")
-            reviewtext = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 _2nPM5Opx"]/span')
-
-            print("REVIEW TEXT")
-
-            print(type(reviewtext))
-            for a in reviewtext:
-                print("THIS IS REVIEW TEXT")
-                # print(a.text)
-                list['reviewtext'] = a.text
-                lowercase_text = a.text.lower()
-                print(lowercase_text)
-
-            return("HAPPY")
-
             
 
             # return(num_page_items)
