@@ -27,8 +27,8 @@ from nltk.tokenize import word_tokenize
 sentence = "At eight o'clock on Thursday morning Arthur didn't feel very good."
 
 tokens = nltk.word_tokenize(sentence)
-# from nltk.stem import PorterStemmer
-# ps = PorterStemmer()
+from nltk.stem import PorterStemmer
+ps = PorterStemmer()
 
 from textblob import TextBlob
 # from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
@@ -217,7 +217,41 @@ def search_results(urlsearch):
                         print("spelling_corrected: ")
                         print(type(spelling_corrected))
 
-                        reviewtext_to_analyze.append(spelling_corrected)
+                        #breaking down words by words
+                        stop_words = set(stopwords.words("english"))
+                        print("TEST TEST TEST")
+                        # word_tokens = word_tokenize(lowercase_text)
+                        corrected_text = ' '.join(spelling_corrected)
+                        word_tokens = word_tokenize(corrected_text)
+                        # print(word_tokens)
+
+                        # filtering and removing stop words
+                        filtered_text = [w for w in word_tokens if not w in stop_words]
+
+                        # filtered_text = []
+
+                        # removing stop words and stemming
+                        stemmed = []
+                        
+                        for w in word_tokens:
+                            if w not in stop_words:
+                                
+                                filtered_text.append(w)
+                                stemmed_text = ps.stem(w)
+                                stemmed.append(stemmed_text)
+
+                                
+                        print("stop words removed: ")
+                        # print(filtered_text)
+                        data_for_commonwords.append(filtered_text)
+
+        
+                        stemmed_text = ' '.join(stemmed)
+                        # print("stemmed: ")
+                        # print(stemmed_text)
+                        
+                        reviewtext_to_analyze.append(stemmed_text)
+
                         
 
             
