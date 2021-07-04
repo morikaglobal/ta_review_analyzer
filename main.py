@@ -30,7 +30,7 @@ tokens = nltk.word_tokenize(sentence)
 # from nltk.stem import PorterStemmer
 # ps = PorterStemmer()
 
-# from textblob import TextBlob
+from textblob import TextBlob
 # from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 # from pprint import pprint
 # import pandas as pd
@@ -49,7 +49,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-#driver_path = r'C:/Users/USER/chromedriver.exe'
+# driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
 driver_path = '/app/.chromedriver/bin/chromedriver'
@@ -119,6 +119,9 @@ def search_results(urlsearch):
         location = []
 
         # return (search_string)
+
+        reviewtext_to_analyze = []
+        data_for_commonwords = []
 
         for i in range (0, 2):
 
@@ -190,9 +193,32 @@ def search_results(urlsearch):
                     for a in reviewtext:
                         print("THIS IS REVIEW TEXT")
                         # print(a.text)
-                        list['reviewtext'] = a.text
+                        # list['reviewtext'] = a.text
                         lowercase_text = a.text.lower()
-                        print(lowercase_text)
+                        # print(lowercase_text)
+
+                        # removing punctuations
+                        text_punctuations = nltk.word_tokenize(lowercase_text)
+                        punctuations_removed = [word for word in text_punctuations if word.isalnum()]
+                        # list['reviewtext'] = punctuations_removed
+                        print("punctuations removed: ")
+                        # print(punctuations_removed)
+
+                        spelling_corrected = []
+
+                        #spelling correction
+                        for word in punctuations_removed:
+                            if word == "disney" or "hong" or "kong" or "hk": 
+                                spelling_corrected.append(word)
+                            else:
+                                output = str(TextBlob(word).correct())
+                                spelling_corrected.append(word)
+
+                        print("spelling_corrected: ")
+                        print(type(spelling_corrected))
+
+                        reviewtext_to_analyze.append(spelling_corrected)
+                        
 
             
                     reviewer_location = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]/span')
@@ -207,9 +233,15 @@ def search_results(urlsearch):
 
                     # test2 = reviewer_location[1]
 
+                    
+
+                    
+
                     driver.quit()
                     print(tokens)
                     testing = tokens[4]
+                    print("LIST GET")
+                    print(reviewtext_to_analyze)
                     return(testing)
 
                     return(test) 
