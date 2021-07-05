@@ -131,7 +131,7 @@ def search_results(urlsearch):
             for _ in range(1):   #try up to 1 time
                 try:
 
-                    return(testps)
+                    
                     print("TEST")
                     driver.implicitly_wait(10)
                     # wait = ui.WebDriverWait(driver, 10)
