@@ -238,24 +238,24 @@ def search_results(urlsearch):
                         # removing stop words and stemming
                         stemmed = []
                         
-                        for w in word_tokens:
-                            if w not in stop_words:
+                        # for w in word_tokens:
+                        #     if w not in stop_words:
                                 
-                                filtered_text.append(w)
-                                stemmed_text = ps.stem(w)
-                                stemmed.append(stemmed_text)
+                        #         filtered_text.append(w)
+                        #         stemmed_text = ps.stem(w)
+                        #         stemmed.append(stemmed_text)
 
                                 
-                        print("stop words removed: ")
-                        # print(filtered_text)
-                        data_for_commonwords.append(filtered_text)
+                        # print("stop words removed: ")
+                        # # print(filtered_text)
+                        # data_for_commonwords.append(filtered_text)
 
         
-                        stemmed_text = ' '.join(stemmed)
-                        # print("stemmed: ")
-                        # print(stemmed_text)
+                        # stemmed_text = ' '.join(stemmed)
+                        # # print("stemmed: ")
+                        # # print(stemmed_text)
                         
-                        reviewtext_to_analyze.append(stemmed_text)
+                        reviewtext_to_analyze.append(spelling_corrected)
 
                         
 
