@@ -52,7 +52,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-#driver_path = r'C:/Users/USER/chromedriver.exe'
+# driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
 driver_path = '/app/.chromedriver/bin/chromedriver'
@@ -165,7 +165,7 @@ def search_results(urlsearch):
                     #     print(type(review_box))
 
                     print(type(container))  #webelement
-                    print(container)
+                    # print(container)
                     # return("TESTING WORKED")
                     # for i in container:
                     #     print("PRINTING")
@@ -207,7 +207,7 @@ def search_results(urlsearch):
                         punctuations_removed = [word for word in text_punctuations if word.isalnum()]
                         # list['reviewtext'] = punctuations_removed
                         print("punctuations removed: ")
-                        # print(punctuations_removed)
+                        print(punctuations_removed)
 
                         spelling_corrected = []
 
@@ -228,15 +228,25 @@ def search_results(urlsearch):
                         # word_tokens = word_tokenize(lowercase_text)
                         corrected_text = ' '.join(spelling_corrected)
                         word_tokens = word_tokenize(corrected_text)
-                        # print(word_tokens)
+                        print(word_tokens)
 
                         # filtering and removing stop words
                         filtered_text = [w for w in word_tokens if not w in stop_words]
+                        print(filtered_text)
 
+                        reviewtext_to_analyze.append(filtered_text)
+
+
+                    driver.quit()
+                    testtest = reviewtext_to_analyze[0]
+                    print(type(testtest))
+                    print(testtest)
+                    test2 = str(testtest)
+                    return(test2)
                         # filtered_text = []
 
                         # removing stop words and stemming
-                        stemmed = []
+                        # stemmed = []
                         
                         # for w in word_tokens:
                         #     if w not in stop_words:
@@ -255,35 +265,35 @@ def search_results(urlsearch):
                         # # print("stemmed: ")
                         # # print(stemmed_text)
                         
-                        reviewtext_to_analyze.append(spelling_corrected)
+                    #     reviewtext_to_analyze.append(spelling_corrected)
 
                         
 
             
-                    reviewer_location = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]/span')
+                    # reviewer_location = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]/span')
             
-                    print("REVIEWER LOCATION")
+                    # print("REVIEWER LOCATION")
 
             
-                    print(type(reviewer_location))  #list 
-                    print(reviewer_location)
-                    # for a in reviewer_location:
-                    #     print(a.text)
+                    # print(type(reviewer_location))  #list 
+                    # print(reviewer_location)
+                    # # for a in reviewer_location:
+                    # #     print(a.text)
 
-                    # test2 = reviewer_location[1]
+                    # # test2 = reviewer_location[1]
 
                     
 
                     
 
-                    driver.quit()
-                    print(tokens)
-                    testing = tokens[4]
-                    print("LIST GET")
-                    print(reviewtext_to_analyze)
-                    return(testing)
+                    # driver.quit()
+                    # print(tokens)
+                    # testing = tokens[4]
+                    # print("LIST GET")
+                    # print(reviewtext_to_analyze)
+                    # return(testing)
 
-                    return(test) 
+                    # return(test) 
 
                 except Exception as e:  #if error
                     print("Error trying agan")
