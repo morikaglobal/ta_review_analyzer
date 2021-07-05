@@ -30,6 +30,9 @@ tokens = nltk.word_tokenize(sentence)
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 
+testps = ps.stem("cats")
+print(testps)
+
 from textblob import TextBlob
 # from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 # from pprint import pprint
@@ -49,7 +52,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-# driver_path = r'C:/Users/USER/chromedriver.exe'
+#driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
 driver_path = '/app/.chromedriver/bin/chromedriver'
@@ -128,6 +131,7 @@ def search_results(urlsearch):
             for _ in range(1):   #try up to 1 time
                 try:
 
+                    return(testps)
                     print("TEST")
                     driver.implicitly_wait(10)
                     # wait = ui.WebDriverWait(driver, 10)
@@ -137,6 +141,7 @@ def search_results(urlsearch):
                     time.sleep(10)
                     wait = ui.WebDriverWait(driver, 20)
                     print("GETTING URL")
+                    print(testps)
 
                     # show_more = wait.until(lambda driver: driver.
                     # element_to_be_clickable("_36B4Vw6t"))
