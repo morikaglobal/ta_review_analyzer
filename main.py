@@ -128,7 +128,7 @@ def search_results(urlsearch):
 
         for i in range (0, 2):
 
-            for _ in range(1):   #try up to 1 time
+            for _ in range(2):   #try up to 1 time
                 try:
 
                     
