@@ -52,10 +52,10 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-# driver_path = r'C:/Users/USER/chromedriver.exe'
+driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
-driver_path = '/app/.chromedriver/bin/chromedriver'
+#driver_path = '/app/.chromedriver/bin/chromedriver'
 
 driver= webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
 driver.implicitly_wait(10)
@@ -225,8 +225,9 @@ def search_results(urlsearch):
                         #breaking down words by words
                         stop_words = set(stopwords.words("english"))
                         print("TEST TEST TEST")
-                        # word_tokens = word_tokenize(lowercase_text)
+                        word_tokens = word_tokenize(lowercase_text)
                         corrected_text = ' '.join(spelling_corrected)
+                        print("NO ERROR HERE")
                         word_tokens = word_tokenize(corrected_text)
                         print(word_tokens)
 
@@ -234,38 +235,33 @@ def search_results(urlsearch):
                         filtered_text = [w for w in word_tokens if not w in stop_words]
                         print(filtered_text)
 
-                        reviewtext_to_analyze.append(filtered_text)
+                        # reviewtext_to_analyze.append(filtered_text)
 
 
-                    driver.quit()
-                    testtest = reviewtext_to_analyze[0]
-                    print(type(testtest))
-                    print(testtest)
-                    test2 = str(testtest)
-                    return(test2)
+                    
                         # filtered_text = []
 
-                        # removing stop words and stemming
-                        # stemmed = []
+                        #removing stop words and stemming
+                        stemmed = []
                         
-                        # for w in word_tokens:
-                        #     if w not in stop_words:
+                        for w in word_tokens:
+                            if w not in stop_words:
                                 
-                        #         filtered_text.append(w)
-                        #         stemmed_text = ps.stem(w)
-                        #         stemmed.append(stemmed_text)
+                                filtered_text.append(w)
+                                stemmed_text = ps.stem(w)
+                                stemmed.append(stemmed_text)
 
                                 
-                        # print("stop words removed: ")
-                        # # print(filtered_text)
-                        # data_for_commonwords.append(filtered_text)
+                        print("stop words removed for commonword analysis: ")
+                        # print(filtered_text)
+                        data_for_commonwords.append(filtered_text)
 
         
-                        # stemmed_text = ' '.join(stemmed)
-                        # # print("stemmed: ")
-                        # # print(stemmed_text)
+                        stemmed_text = ' '.join(stemmed)
+                        # print("stemmed: ")
+                        # print(stemmed_text)
                         
-                    #     reviewtext_to_analyze.append(spelling_corrected)
+                        reviewtext_to_analyze.append(stemmed_text)
 
                         
 
@@ -282,7 +278,16 @@ def search_results(urlsearch):
 
                     # # test2 = reviewer_location[1]
 
-                    
+                    driver.quit()
+                    testtest = reviewtext_to_analyze[0]
+                    print(type(testtest))
+                    print("reviewtext to analyze")
+                    print(testtest)
+                    testtest2 = data_for_commonwords[0]
+                    print("data for commonwords:")
+                    print(testtest2)
+                    test2 = str(testtest)
+                    return(test2)
 
                     
 
