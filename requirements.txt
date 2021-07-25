@@ -13,7 +13,11 @@ kiwisolver==1.2.0
 MarkupSafe==1.1.1
 matplotlib==3.3.0
 nltk==3.5
+<<<<<<< HEAD
 numpy==1.20.3
+=======
+numpy==1.20.3+mkl
+>>>>>>> 7c13cde73ad3d3b06334f1a5dfb5912a11e657a5
 pandas==1.1.0
 Pillow==8.2.0
 pyparsing==2.4.7
@@ -28,5 +32,9 @@ six==1.15.0
 textblob==0.15.3
 tqdm==4.47.0
 urllib3==1.25.11
+<<<<<<< HEAD
+=======
+vaderSentiment==3.3.2
+>>>>>>> 7c13cde73ad3d3b06334f1a5dfb5912a11e657a5
 Werkzeug==1.0.1
 WTForms==2.3.1

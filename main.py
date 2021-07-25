@@ -4,7 +4,6 @@ from forms import UrlSearchForm
 
 import time
 import os
-# from telnetlib import EC
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
@@ -17,29 +16,23 @@ from selenium.webdriver.support import ui
 import nltk
 # nltk.data.path.append('TA_REVIEW_ANALYZER/nltk_data')
 
-
-# import nltk
 nltk.download("punkt")
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-sentence = "At eight o'clock on Thursday morning Arthur didn't feel very good."
-
-tokens = nltk.word_tokenize(sentence)
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 
-testps = ps.stem("cats")
-print(testps)
 
 from textblob import TextBlob
 # from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
-# from pprint import pprint
-# import pandas as pd
-# import numpy as np
-# import seaborn as sns
-# sns.set(style='darkgrid', context='talk', palette='Dark2')
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer as SIA
+from pprint import pprint
+import pandas as pd
+import numpy as np
+import seaborn as sns
+sns.set(style='darkgrid', context='talk', palette='Dark2')
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
@@ -47,15 +40,14 @@ chrome_options.add_argument('--headless')
 # chrome_options.add_argument('--disable-gpu')
 # chrome_options.add_argument('--disable-extensions')
 # chrome_options.add_argument('--proxy-server="direct://"')
-
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-driver_path = r'C:/Users/USER/chromedriver.exe'
+# driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
-#driver_path = '/app/.chromedriver/bin/chromedriver'
+driver_path = '/app/.chromedriver/bin/chromedriver'
 
 driver= webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
 driver.implicitly_wait(10)
@@ -63,11 +55,6 @@ driver.implicitly_wait(10)
 
 
 app = Flask(__name__)
-
-# @app.route('/')
-
-# def index():
-#     return ("Hello")
 
 @app.route('/', methods = ["GET", "POST"])
 def index():
@@ -81,14 +68,6 @@ def index():
         
         try:
 
-            #test
-            # driver.get(search_string)
-            # errors.append(
-            #     "Getting URL"
-            # )   
-            
-            
-            # driver.implicitly_wait(10)
             if search_string.startswith("https://www.tripadvisor.com/", 0):
                 errors.append(
                 "Loading."
@@ -125,71 +104,57 @@ def search_results(urlsearch):
 
         reviewtext_to_analyze = []
         data_for_commonwords = []
+        title_list = []
+        reviewtext_raw_list = []
+        reviewtext_list = []
+        list = {}
+
+
+        print("TEST")
+        driver.implicitly_wait(10)
+        # wait = ui.WebDriverWait(driver, 10)
+        print("load")
+        print(search_string)
+        driver.get(search_string)
 
         for i in range (0, 2):
 
-            for _ in range(2):   #try up to 1 time
+            for _ in range(2):   #try up to 2 times
                 try:
-
-                    
-                    print("TEST")
-                    driver.implicitly_wait(10)
-                    # wait = ui.WebDriverWait(driver, 10)
-                    print("load")
-                    print(search_string)
-                    driver.get(search_string)
                     time.sleep(10)
                     wait = ui.WebDriverWait(driver, 20)
-                    print("GETTING URL")
-                    print(testps)
-
+                    print("GETTING PAGE")
+                    
                     # show_more = wait.until(lambda driver: driver.
                     # element_to_be_clickable("_36B4Vw6t"))
                     # driver.execute_script("arguments[0].click();", show_more)
                     # print("clicked")
-  
+    
                     read_more = driver.find_element_by_class_name("_36B4Vw6t")
-                    print("found it")
+                    print("found read_more")
                     # read_more.click()   use excute_script below instead
                     driver.execute_script("arguments[0].click();", read_more)
-                    print("clicked")
-
-                
-                    # return("TESTING WORKED")
-
-                    list = {}
-                
+                    print("read_more clicked")
+                    
                     container = driver.find_element_by_class_name('_1c8_1ITO')
-                    print(container.text)
+                    # print(container.text)
                     # for review_box in container:
                     #     print(type(review_box))
 
                     print(type(container))  #webelement
-                    # print(container)
-                    # return("TESTING WORKED")
-                    # for i in container:
-                    #     print("PRINTING")
-                    #     print(i.text)
-                    print('TESTING')
-                    
-                    # return("Success")  
-                    # container = driver.find_elements_by_xpath('//q[@class="IRsGHoPm"]')
-                
-                    
-                    # num_page_items = len(container)   
-                    # title = driver.find_elements_by_xpath('//div[@class="glasR4aX"]')
-                    print("OK TITLE")
-                    # title = container.find_elements_by_xpath('./following-sibling::span[@class="_2tsgCuqy"]')
-
-                    # title = container.find_element_by_xpath('//span[@class="_2tsgCuqy"]')
-
+                   
                     title = container.find_elements_by_xpath('//div[@class="DrjyGw-P _1SRa-qNz _19gl_zL- _1z-B2F-n _2AAjjcx8"]/span')
                     
-                    print("TITLE")
-                    test = title[1].text
-                    print(test)
-
-                    
+                    for a in title:
+                        # list.update(reviewtitle = a.text)
+                        # list['reviewtitle'] = a.text
+                        print(a.text)
+                        title_text = a.text
+                        title_list.append(title_text)
+                            
+                    list['reviewtitle'] = title_list
+    
+                        
                     reviewtext = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 _2nPM5Opx"]/span')
 
                     print("REVIEW TEXT")
@@ -197,17 +162,20 @@ def search_results(urlsearch):
                     print(type(reviewtext))
                     for a in reviewtext:
                         print("THIS IS REVIEW TEXT")
-                        # print(a.text)
-                        # list['reviewtext'] = a.text
-                        lowercase_text = a.text.lower()
-                        # print(lowercase_text)
+                        reviewtext_raw = a.text
+                        reviewtext_raw_list.append(reviewtext_raw)
 
+                        
+                        lowercase_text = a.text.lower()
+                        
                         # removing punctuations
                         text_punctuations = nltk.word_tokenize(lowercase_text)
                         punctuations_removed = [word for word in text_punctuations if word.isalnum()]
-                        # list['reviewtext'] = punctuations_removed
+
+                        reviewtext_list.append(punctuations_removed)
+
                         print("punctuations removed: ")
-                        print(punctuations_removed)
+                        # print(punctuations_removed)
 
                         spelling_corrected = []
 
@@ -224,22 +192,16 @@ def search_results(urlsearch):
 
                         #breaking down words by words
                         stop_words = set(stopwords.words("english"))
-                        print("TEST TEST TEST")
+    
                         word_tokens = word_tokenize(lowercase_text)
                         corrected_text = ' '.join(spelling_corrected)
-                        print("NO ERROR HERE")
+                        
                         word_tokens = word_tokenize(corrected_text)
-                        print(word_tokens)
+                        # print(word_tokens)
 
                         # filtering and removing stop words
                         filtered_text = [w for w in word_tokens if not w in stop_words]
-                        print(filtered_text)
-
-                        # reviewtext_to_analyze.append(filtered_text)
-
-
-                    
-                        # filtered_text = []
+                        # print(filtered_text)
 
                         #removing stop words and stemming
                         stemmed = []
@@ -251,21 +213,22 @@ def search_results(urlsearch):
                                 stemmed_text = ps.stem(w)
                                 stemmed.append(stemmed_text)
 
-                                
+                            
                         print("stop words removed for commonword analysis: ")
                         # print(filtered_text)
                         data_for_commonwords.append(filtered_text)
 
-        
+            
                         stemmed_text = ' '.join(stemmed)
                         # print("stemmed: ")
                         # print(stemmed_text)
                         
                         reviewtext_to_analyze.append(stemmed_text)
 
+                    list['reviewtextraw'] = reviewtext_raw_list
+                    list['reviewtext'] = reviewtext_list
+                    scraped_data.append(list)
                         
-
-            
                     # reviewer_location = container.find_elements_by_xpath('//div[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]/span')
             
                     # print("REVIEWER LOCATION")
@@ -276,176 +239,27 @@ def search_results(urlsearch):
                     # # for a in reviewer_location:
                     # #     print(a.text)
 
-                    # # test2 = reviewer_location[1]
-
-                    driver.quit()
-                    testtest = reviewtext_to_analyze[0]
-                    print(type(testtest))
-                    print("reviewtext to analyze")
-                    print(testtest)
-                    testtest2 = data_for_commonwords[0]
-                    print("data for commonwords:")
-                    print(testtest2)
-                    test2 = str(testtest)
-                    return(test2)
-
-                    
-
-                    # driver.quit()
-                    # print(tokens)
-                    # testing = tokens[4]
-                    # print("LIST GET")
-                    # print(reviewtext_to_analyze)
-                    # return(testing)
-
-                    # return(test) 
-
                 except Exception as e:  #if error
-                    print("Error trying agan")
-                    time.sleep(5)
+                    print("Error - please reload the page and try again")
+                    time.sleep(2)
                 else: 
-                    # get out of the loop if no error
-                    
+                    # get out of the loop if no error  
                     break
             else:
                 # if all 3 attemps fail
                 driver.quit()
                 return ("ERROR please try again")
 
-            # print(title)
-            print(type(title))  #list 
-            for a in title:
-                print(a.text)
-
-
-            
-
-            
-            
-
-            # return(num_page_items)
-            # reviewer_location = driver.find_elements_by_xpath('//span[@class="default _3J15flPT small"]')
-            reviewer_location = driver.find_elements_by_xpath('//span[@class="DrjyGw-P _26S7gyB4 NGv7A1lw _2yS548m8 _2cnjB3re _1TAWSgm1 _1Z1zA2gh _2-K8UW3T _1dimhEoy"]')
-            # location_div = driver.find_elements_by_xpath('//div[@class="_1EpRX7o3"]')
-            print(type(reviewer_location))   #list
-            print(reviewer_location)
-            # return(search_string)
-
-            for j in range(num_page_items):
-                print("processing: ")
-
-                list = {}
-
-        
-                # list['title'] = title[j].text
-                # print(list['title'])
-                # print(title[j].text)
-                list['reviewtitle'] = title[j].text
-                print(title[j].text)
-                # return (title[j].text) worked on the web
-
-
-
-                list['reviewtext'] = container[j].text
-                lowercase_text = container[j].text.lower()
-
-                # # removing puncutations
-                # testwords = nltk.word_tokenize(lowercase_text)
-                # test_words = [word for word in testwords if word.isalnum()]
-                # list['reviewtext'] = test_words
-                # # print("puncutations removed: ")
-                # # print(test_words)
-
-                # spelling_corrected = []
-
-                # #spelling correction
-                # for word in test_words:
-                #     if word == "disney" or "hong" or "kong" or "hk": 
-                #         spelling_corrected.append(word)
-                #     else:
-                #         output = str(TextBlob(word).correct())
-                #         spelling_corrected.append(word)
-
-                # print("spelling_corrected: ")
-                # print(type(spelling_corrected))
-
-                # #breaking down words by words
-                # stop_words = set(stopwords.words("english"))
-                # # word_tokens = word_tokenize(lowercase_text)
-                # corrected_text = ' '.join(spelling_corrected)
-                # word_tokens = word_tokenize(corrected_text)
-                # # print(word_tokens)
-
-                # # filtering and removing stop words
-                # filtered_text = [w for w in word_tokens if not w in stop_words]
-
-                # filtered_text = []
-
-                # # removing stop words and stemming
-                # stemmed = []
-                
-                # for w in word_tokens:
-                #     if w not in stop_words:
-                        
-                #         filtered_text.append(w)
-                #         stemmed_text = ps.stem(w)
-                #         stemmed.append(stemmed_text)
-
-                        
-                # print("stop words removed: ")
-                # # print(filtered_text)
-                # data_for_commonwords.append(filtered_text)
-
-        
-                # stemmed_text = ' '.join(stemmed)
-                # print("stemmed: ")
-                # # print(stemmed_text)
-                
-                # reviewtext_to_analyze.append(stemmed_text)
-
-                try:
-                    locationtext = location_div[j].find_element_by_xpath('.//span[@class="default _3J15flPT small"]')
-                    print(locationtext.text)
-                    location.append(locationtext.text)
-                    # return locationtext.text worked
-                except:
-                    print("no location")
-                    location.append("no location")
-
-
-                
-
-
-                # scraped_data.append(list)
-
-                # print("scraped_data for this page is: ")
-                # # print(type(scraped_data)) #list
-                # print(scraped_data)
-
-            # print("scraped_data: ")
-            # print(type(scraped_data)) #list
-            # print(scraped_data)
-
-            
-            driver.find_element_by_xpath('//a[@class="ui_button nav next primary "]').click()
-            print("clicked")
+            # driver.find_element_by_xpath('//a[@class="ui_button nav next primary "]').click()
+            driver.find_element_by_xpath('//div[@class="_1I73Kb0a"]').click()
+            print("NEXT PAGE clicked")
             # return ("success") worked
-            time.sleep(50)
-
-        # return ("success")
-        print("collected data: ")
+            time.sleep(15)
+        
+        print("DATA DATA DATA")
+        # print(scraped_data)
         print(type(scraped_data)) #list
-        print(scraped_data)
-        print("location list: ")
-        print(type(location))
-        print(location)
-        print("First set: ")
-        return(scraped_data[0])
-        print(location[0])
-        print(reviewtext_to_analyze)
-            
-        # return ('hohoho')
-
+        
         sia = SIA()
         # print("ready data: ")
         # print(type(reviewtext_to_analyze))
@@ -454,19 +268,19 @@ def search_results(urlsearch):
 
         # First - sentiment analysis (positive/negative) on original review text
         review_rawtext = [x['reviewtextraw'] for x in scraped_data]
-        print("testing is: ")
-        # print(testing)
-
-        for review in review_rawtext:
+        
+        for review in reviewtext_raw_list:
+            # print("test going")
             pol_score = sia.polarity_scores(review)
             pol_score['reviewtext'] = review
             analysis_result.append(pol_score)
 
-        # pprint(analysis_result, width = 200, compact = True)
+        pprint(analysis_result, width = 200, compact = True)
 
         df = pd.DataFrame.from_records(analysis_result)
         df.head()
         print(df)
+        
 
         df['label'] = 0
         df.loc[df['compound'] > 0.2, 'label'] = 1
@@ -481,52 +295,87 @@ def search_results(urlsearch):
         # #reviews with positive score only
         pos_lines_positive = df[df.label == 1].reviewtext
         print("priting positive reviews: ")
+        no_of_positivereviews = len(pos_lines_positive)
         print(pos_lines_positive)
 
         positive = []
         for i in pos_lines_positive:
             positive.append(i)
 
-        print(positive)
+        # print(positive)
+        positive_samples = positive[0:5]
+        print(positive_samples)
 
         #reviews with negative score only
         pos_lines_negative = df[df.label == -1].reviewtext
 
-        # print("type of pos_lines_positive: ")
-        print(type(pos_lines_positive)) #list
+        print(type(pos_lines_negative)) # pandas series
         print("printing negative reviews:")
-        print(pos_lines_negative)
+        no_of_negativereviews = len(pos_lines_negative)
+        print("number of negative reviews")
+        print(no_of_negativereviews)
+
+        negative = []
+
+        if no_of_negativereviews == 0:
+            negative.append("No negative reviews were found in the latest 100 reviews for the attraction.")
+        else:
+            for i in pos_lines_negative:
+                print(i)
+                negative.append(i)
+
+
+        # print(negative)
+        negative_samples = negative[0:5]
+        print("NEGATIVE REVIEW:")
+        print(negative_samples)
+
         #reviews with neutral score only
         pos_lines_neutral = df[df.label == 0].reviewtext
 
-        # print("type of pos_lines_positive: ")
         # print(type(pos_lines_positive)) #list
         print("printing neutral reviews:")
-        print(pos_lines_neutral)
+        # print(pos_lines_neutral)
 
-        #start text cleaning from here
+        
+
+        # Second - start text cleaning 
+        
         #positive reviews
-        lowercase_nopunctuation = []
         removed_list_positive = []
-        for review_text in pos_lines_positive:
+
+        print(type(pos_lines_positive))  #pandas series
+
+        list_pos_lines_positive= pos_lines_positive.tolist()
+        print(type(list_pos_lines_positive)) #list
+
+        for i in list_pos_lines_positive:
+            print(i)
             #lowercase and remove puncutations
-            lowercase_nopunctuation = nltk.word_tokenize(review_text.lower())
+            review_text_lowercase = i.lower()
+            
+            lowercase_nopunctuation = nltk.word_tokenize(review_text_lowercase)
+            print(lowercase_nopunctuation)
             removed = [word for word in lowercase_nopunctuation if word.isalnum()]
+            print(removed)
             removed_list_positive.append(removed)
 
+        print("worked")
         #negative reviews
         lowercase_nopunctuation_negative = []
         removed_list_negative = []
-        for review_text in pos_lines_negative:
+
+        for text in pos_lines_negative:
             #lowercase and remove puncutations
-            lowercase_nopunctuation_negative = nltk.word_tokenize(review_text.lower())
+            review_text_lowercase = text.lower()
+            lowercase_nopunctuation_negative = nltk.word_tokenize(review_text_lowercase)
             removed = [word for word in lowercase_nopunctuation_negative if word.isalnum()]
             removed_list_negative.append(removed)
 
         print("lowercased and puncuations removed: ")
         print(len(removed_list_positive))
         print(len(removed_list_negative))
-        
+    
 
         #spelling correction  
         spelling_corrected_positive = []
@@ -577,16 +426,13 @@ def search_results(urlsearch):
 
         # negative
         filtered_text_negative = [w for w in word_tokens_negative if not w in stop_words]
-        print("filtered_text: ")
-        # print(filtered_text)
+        
 
         # positive
         pos_freq = nltk.FreqDist(filtered_text_positive)
         print("common words in positive reviews (only) are: ")
         print(type(pos_freq))
         print(pos_freq.most_common(20))
-
-        # pos_lines_positive = df[df.label == 1].reviewtext
 
         common_words_positive = pos_freq.most_common(20)
         print(type(common_words_positive)) #list
@@ -601,8 +447,6 @@ def search_results(urlsearch):
             positive_top_words.append(word_text)
             positive_top_words_freq.append(word_freq)
 
-            
-        
         print(positive_top_words)
         print(positive_top_words_freq)
 
@@ -612,24 +456,47 @@ def search_results(urlsearch):
         print("common words in negative reviews are: ")
         print(pos_freq_negative.most_common(20))
 
+        common_words_negative = pos_freq_negative.most_common(10)
+        print(type(common_words_negative)) #list
+        print(common_words_negative) #list of top 20 positive common words
+
+        negative_top_words = []
+        negative_top_words_freq = []
+
+        if len(common_words_negative) == 0:
+            negative_top_words.append("No negative reviews were found in the latest 100 reviews for the attraction")
+            # negative_top_words_freq.append("No negative reviews were found in the latest 100 reviews for the attraction.")
+        else:
+            for i in common_words_negative:
+                word_text = i[0]
+                # print(word_text)
+                word_freq = i[1]
+                negative_top_words.append(word_text)
+                negative_top_words_freq.append(word_freq)
+
+        print(negative_top_words)
+        print(negative_top_words_freq)
+
         
-        # return ("ohoho")
-        return render_template("test2.html", search_string = search_string, location = location,
-        positive=positive, positive_top_words=positive_top_words,
-        positive_top_words_freq=positive_top_words_freq)
-        return render_template("test.html", search_string = search_string)
+        # return ("data ready for results")
+        return render_template("results.html", search_string = search_string, 
+        positive=positive, 
+        positive_samples=positive_samples,
+        negative_samples=negative_samples,
+        positive_top_words=positive_top_words,
+        positive_top_words_freq=positive_top_words_freq,
+        negative_top_words=negative_top_words,
+        negative_top_words_freq=negative_top_words_freq,
+        no_of_positivereviews=no_of_positivereviews,
+        no_of_negativereviews=no_of_negativereviews)
+        
+
     except:
-        return ("Error Error")
+        return ("Error - please reload the page and try again")
     finally:
         driver.quit()
 
-    # driver.get(search_string)
-    # time.sleep(30)
-    # # return("success: " + search_string)
-    # # driver.quit()
-
-    # return render_template("results.html", search_string = search_string)
-
+    
 
 if __name__ == '__main__':
       app.run()
