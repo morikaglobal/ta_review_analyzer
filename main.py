@@ -44,10 +44,10 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument('--no-sandbox')
 
 # for LOCAL HOST comment out for deployment
-driver_path = r'C:/Users/USER/chromedriver.exe'
+# driver_path = r'C:/Users/USER/chromedriver.exe'
 
 # for heroku deployment
-#driver_path = '/app/.chromedriver/bin/chromedriver'
+driver_path = '/app/.chromedriver/bin/chromedriver'
 
 driver= webdriver.Chrome(executable_path=driver_path, chrome_options=chrome_options)
 driver.implicitly_wait(10)
@@ -117,7 +117,7 @@ def search_results(urlsearch):
         print(search_string)
         driver.get(search_string)
 
-        for i in range (0, 10):
+        for i in range (0, 2):
 
             for _ in range(2):   #try up to 2 times
                 try:
