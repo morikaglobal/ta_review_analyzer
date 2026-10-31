@@ -29,5 +29,5 @@ textblob==0.15.3
 tqdm==4.47.0
 urllib3==1.25.11
 vaderSentiment==3.3.2
-Werkzeug==2.2.3
+Werkzeug==3.1.9
 WTForms==2.3.1
