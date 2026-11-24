@@ -4,7 +4,7 @@ chromedriver-binary-auto==0.1
 click==7.1.2
 cycler==0.10.0
 Flask==1.1.2
-gunicorn==20.0.4
+gunicorn==22.0.0
 idna==2.10
 itsdangerous==1.1.0
 Jinja2==2.11.3
